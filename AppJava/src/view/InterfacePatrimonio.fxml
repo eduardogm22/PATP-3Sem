@@ -1,43 +1,147 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AppJava.src.controller.InterfaceController" fx:id="rootPane">
+<BorderPane fx:id="rootPane" prefHeight="955.0" prefWidth="1518.0" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AppJava.src.controller.InterfaceController">
    <!-- Barra de título personalizada -->
    <top>
-      <HBox alignment="CENTER_RIGHT" prefHeight="30.0" spacing="10" style="-fx-background-color: #2c3e50;">
+      <HBox alignment="CENTER_RIGHT" prefHeight="45.0" spacing="10" style="-fx-background-color: #2c3e50;">
+         <Button mnemonicParsing="false" text="ESTQ">
+            <HBox.margin>
+               <Insets />
+            </HBox.margin>
+         </Button>
+         <Button mnemonicParsing="false" text="PATR">
+            <HBox.margin>
+               <Insets />
+            </HBox.margin>
+         </Button>
          <Label fx:id="testeLabel" text="Texto inicial" textFill="WHITE" />
-         <Button fx:id="btnMinimize" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand;" text="—" onAction="#handleMinimize"/>
-         <Button fx:id="btnClose" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand;" text="X" onAction="#handleClose"/>
+         <Button fx:id="btnMinimize" onAction="#handleMinimize" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand;" text="—" />
+         <Button fx:id="btnClose" onAction="#handleClose" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand;" text="X">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font></Button>
 
       </HBox>
    </top>
 
    <!-- Menu lateral -->
    <left>
-      <VBox alignment="CENTER_LEFT" prefWidth="100.0" spacing="20.0">
+      <VBox alignment="CENTER_LEFT" prefWidth="100.0" spacing="20.0" style="-fx-background-color: gray;">
          <children>
-            <Button fx:id="btnTela1" text="Tela 1" onAction="#loadTela1"/>
-            <Button fx:id="btnTela2" text="Tela 2" onAction="#loadTela2"/>
+            <Button fx:id="btnHome" onAction="#loadHome" text="Home" />
+            <Button fx:id="btnTela1" onAction="#loadTela1" text="Tela 1" />
+            <Button fx:id="btnTela2" onAction="#loadTela2" text="Tela 2" />
          </children>
          <padding>
             <Insets left="15.0" top="20.0" />
          </padding>
       </VBox>
    </left>
-
-   <!-- Conteúdo principal -->
+   <bottom>
+      <HBox alignment="CENTER_RIGHT" prefHeight="30.0" spacing="10.0" style="-fx-background-color: #2c3e50;">
+         <children>
+            <Label alignment="CENTER_RIGHT" text="Label" textFill="WHITE">
+               <padding>
+                  <Insets right="50.0" />
+               </padding>
+            </Label>
+         </children>
+      </HBox>
+   </bottom>
    <center>
-      <Label text="Conteúdo principal" />
-
-
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Button" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets right="30.0" />
+               </padding></HBox>
+            <HBox alignment="CENTER" prefHeight="150.0" spacing="210.0">
+               <children>
+                  <Button minHeight="60.0" minWidth="90.0" mnemonicParsing="false" text="BAG" />
+                  <Button minHeight="60.0" minWidth="90.0" mnemonicParsing="false" text="LOGS" />
+                  <Button minHeight="60.0" minWidth="90.0" mnemonicParsing="false" text="PATR" />
+                  <Button minHeight="60.0" minWidth="90.0" mnemonicParsing="false" text="RLT" />
+               </children></HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <LineChart HBox.hgrow="ALWAYS">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </LineChart>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="6.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Label" />
+                        <DatePicker>
+                           <VBox.margin>
+                              <Insets bottom="15.0" />
+                           </VBox.margin>
+                        </DatePicker>
+                        <Label text="Label" />
+                        <DatePicker>
+                           <VBox.margin>
+                              <Insets bottom="6.0" />
+                           </VBox.margin>
+                        </DatePicker>
+                        <Button mnemonicParsing="false" text="Filtrar" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam auctor lorem felis, vel ullamcorper tellus consequat sed. Aliquam dictum fermentum lacinia. Nulla elit leo, vestibulum a lacus eu, ultricies sagittis lectus. Suspendisse odio nibh, porta ac fringilla vitae, mollis eu tortor. Donec rutrum posuere ante, ullamcorper fringilla ex hendrerit in. Phasellus et ipsum sollicitudin dolor aliquet pharetra. Donec a velit et enim tincidunt egestas. Integer sodales vestibulum neque faucibus pellentesque. Sed et vehicula nisi. Vestibulum id aliquet risus." wrappingWidth="376.13671875" HBox.hgrow="ALWAYS" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="666.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <TableView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="C1" />
+                            <TableColumn prefWidth="75.0" text="C2" />
+                          </columns>
+                        </TableView>
+                     </children>
+                     <padding>
+                        <Insets bottom="30.0" left="90.0" right="15.0" top="15.0" />
+                     </padding></VBox>
+                  <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="30.0" />
+                     </padding>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam auctor lorem felis, vel ullamcorper tellus consequat sed. Aliquam dictum fermentum lacinia. Nulla elit leo, vestibulum a lacus eu, ultricies sagittis lectus. Suspendisse odio nibh, porta ac fringilla vitae, mollis eu tortor. Donec rutrum posuere ante, ullamcorper fringilla ex hendrerit in. Phasellus et ipsum sollicitudin dolor aliquet pharetra. Donec a velit et enim tincidunt egestas. Integer sodales vestibulum neque faucibus pellentesque. Sed et vehicula nisi. Vestibulum id aliquet risus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam auctor lorem felis, vel ullamcorper tellus consequat sed. Aliquam dictum fermentum lacinia. Nulla elit leo, vestibulum a lacus eu, ultricies sagittis lectus. Suspendisse odio nibh, porta ac fringilla vitae, mollis eu tortor. Donec rutrum posuere ante, ullamcorper fringilla ex hendrerit in." wrappingWidth="208.13671875" VBox.vgrow="ALWAYS" />
+                     </children></VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
    </center>
 
 
 </BorderPane>
-

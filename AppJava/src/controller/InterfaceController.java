@@ -28,6 +28,9 @@ public class InterfaceController {
 
     private Stage stage;
 
+    // armazenamento do conteúdo inicial do borderpane para restaurar a posição da home
+    private Region initialCenterContent;
+
     @FXML
     private Button btnMinimize;
 
@@ -48,6 +51,7 @@ public class InterfaceController {
     // Método para inicializar a interface com o nome de usuário
     public void initializeInterface(String username) {
         testeLabel.setText("Olá, " + username);
+        initialCenterContent = (Region) rootPane.getCenter();
     }
 
     // Método para fechar a janela
@@ -64,6 +68,10 @@ public class InterfaceController {
         stage.setIconified(true);
     }
 
+    @FXML
+    private void loadHome() throws IOException {
+        rootPane.setCenter(initialCenterContent);
+    }
     @FXML
     private void loadTela1() throws IOException {
         // Carregar o FXML de Tela 1
