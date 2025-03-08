@@ -20,6 +20,9 @@ dependencies = [
 [tool.poetry]
 packages = [{include = "*", from = "src"}]
 
+[tool.poetry.group.dev.dependencies]
+pytest-cov = "^6.0.0"
+
 [tool.pytest.ini_options]
 pythonpath = 'API'
 addopts = '-p no:warnings'
@@ -37,12 +40,12 @@ preview = true
 select = ['I', 'F', 'E', 'W', 'PL', 'PT' ]
 
 [tool.taskipy.tasks]
-run = 'fastapi dev src/api/app.py'
+run = 'fastapi dev src/app.py'
 lint = 'ruff check . && ruff check . --diff'
 format = 'ruff check . --fix && ruff format .'
 
 pre_test = 'task lint'
-test = 'pytest --cov=api -vv'
+test = 'pytest --cov=src -vv'
 pos_test = 'coverage html'
 
 [build-system]
