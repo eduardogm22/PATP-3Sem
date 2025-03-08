@@ -18,10 +18,10 @@ dependencies = [
 ]
 
 [tool.poetry]
-packages = [{include = "api", from = "src"}]
+packages = [{include = "*", from = "src"}]
 
 [tool.pytest.ini_options]
-pythonpath = '.'
+pythonpath = 'API'
 addopts = '-p no:warnings'
 
 [tool.ruff]
