@@ -17,3 +17,7 @@ def create_users(user: UserSchema):
 
 def read_users():
     return {'users': database}
+
+def update_users(idusuario : int, user: UserDB):
+    data_criacao = database[idusuario - 1]['data_criacao']
+    database[idusuario - 1] = UserDB(idusuario, **user.model_dump())
