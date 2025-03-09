@@ -3,7 +3,7 @@ from http import HTTPStatus
 from fastapi import APIRouter
 
 from schemas import UserList, UserLoginSchema, UserPublic, UserSchema
-from services import create_users, read_users
+from services import create_users, read_users, update_users
 
 router = APIRouter()
 
@@ -21,3 +21,8 @@ def create_users_route(user: UserSchema):
 @router.get('/users/', response_model=UserList)
 def read_users_route():
     return read_users()
+
+
+@router.put('/users/{idusuario}', response_model=UserPublic)
+def update_users_route(idusuario: int, user: UserSchema):
+    return update_users(idusuario, user)
