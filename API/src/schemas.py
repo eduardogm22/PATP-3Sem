@@ -4,13 +4,16 @@ from pydantic import BaseModel, EmailStr
 
 
 class UserSchema(BaseModel):
-    idusuario: int
     usuario: str
     senha: str
     nome: str
     email: EmailStr
-    data_criacao: datetime
     idcargo: int
+
+
+class UserDB(UserSchema):
+    idusuario: int
+    data_criacao: datetime
 
 
 class UserPublic(BaseModel):
@@ -22,7 +25,10 @@ class UserPublic(BaseModel):
     idcargo: int
 
 
+class UserList(BaseModel):
+    users: list[UserPublic]
+
+
 class UserLoginSchema(BaseModel):
-    idusuario: int
     login: str
     senha: str
