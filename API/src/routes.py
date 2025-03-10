@@ -2,15 +2,15 @@ from http import HTTPStatus
 
 from fastapi import APIRouter
 
-from schemas import UserList, UserLoginSchema, UserPublic, UserSchema
-from services import create_users, read_users, update_users
+from schemas import UserList, UserPublic, UserSchema
+from services import create_users, delete_users, read_one_user, read_users, update_users
 
 router = APIRouter()
 
 
-@router.post('/login')
-def validate_user(userLogin: UserLoginSchema):
-    pass
+# @router.post('/login')
+# def validate_user(userLogin: UserLoginSchema):
+#     pass
 
 
 @router.post('/users/', status_code=HTTPStatus.CREATED, response_model=UserPublic)
@@ -23,6 +23,16 @@ def read_users_route():
     return read_users()
 
 
+@router.get('/users/{idusuario}', response_model=UserPublic)
+def read_one_user_route(idusuario: int):
+    return read_one_user(idusuario)
+
+
 @router.put('/users/{idusuario}', response_model=UserPublic)
 def update_users_route(idusuario: int, user: UserSchema):
     return update_users(idusuario, user)
+
+
+@router.delete('/users/{idusuario}', status_code=HTTPStatus.NO_CONTENT)
+def delete_user_route(idusuario: int):
+    return delete_users(idusuario)
