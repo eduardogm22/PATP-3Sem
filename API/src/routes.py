@@ -1,6 +1,4 @@
-from http import HTTPStatus
-
-from fastapi import APIRouter
+from fastapi import APIRouter, status
 
 from schemas import UserList, UserPublic, UserSchema
 from services import create_users, delete_users, read_one_user, read_users, update_users
@@ -13,7 +11,7 @@ router = APIRouter()
 #     pass
 
 
-@router.post('/users/', status_code=HTTPStatus.CREATED, response_model=UserPublic)
+@router.post('/users/', status_code=status.HTTP_201_CREATED, response_model=UserPublic)
 def create_users_route(user: UserSchema):
     return create_users(user)
 
@@ -33,6 +31,6 @@ def update_users_route(idusuario: int, user: UserSchema):
     return update_users(idusuario, user)
 
 
-@router.delete('/users/{idusuario}', status_code=HTTPStatus.NO_CONTENT)
+@router.delete('/users/{idusuario}', status_code=status.HTTP_204_NO_CONTENT)
 def delete_user_route(idusuario: int):
     return delete_users(idusuario)

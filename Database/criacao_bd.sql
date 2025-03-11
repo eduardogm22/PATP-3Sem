@@ -1,6 +1,6 @@
-drop database BDCONTROLEPATRIMONIO;
-create database if not exists BDCONTROLEPATRIMONIO;
-use BDCONTROLEPATRIMONIO;
+drop database db_assets_control;
+create database if not exists db_assets_control;
+use db_assets_control;
 
 -- criando as tabelas 
 
@@ -70,16 +70,16 @@ create table cargos (
 	pode_visualizar char(1) not null  
 );
 
-create table usuarios (
-	idusuario integer not null auto_increment primary key,
-	usuario varchar(30) not null unique,  
-	senha varchar(20) not null,
-	nome varchar(30) not null,  
+create table users (
+	userid integer not null auto_increment primary key,
+	username varchar(30) not null unique,  
+	passwd varchar(20) not null,
+	personname varchar(30) not null,  
 	email varchar(40),  
-	dt_create timestamp default current_timestamp,
-	idcargo integer not null,
+	created_at timestamp default current_timestamp,
+	roleid integer not null,
     
-    constraint fk_usr_cargos foreign key (idcargo) references cargos (idcargo)
+    constraint fk_usr_roles foreign key (roleid) references roles (roleid)
 ); 
 
 -- stored procedures

@@ -1,5 +1,5 @@
 from datetime import datetime
-from http import HTTPStatus
+from fastapi import status
 
 
 def test_create_user_deve_retornar_UserPublic(client):
@@ -14,7 +14,7 @@ def test_create_user_deve_retornar_UserPublic(client):
         },
     )
 
-    assert response.status_code == HTTPStatus.CREATED
+    assert response.status_code == status.HTTP_201_CREATED
     assert response.json() == {
         'idusuario': 1,
         'usuario': 'testuser',
@@ -28,7 +28,7 @@ def test_create_user_deve_retornar_UserPublic(client):
 def teste_read_users_deve_retornar_lista_de_UserPublic(client):
     response = client.get('/users/')
 
-    assert response.status_code == HTTPStatus.OK
+    assert response.status_code == status.HTTP_200_OK
     assert response.json()['users'] == [
         {
             'idusuario': 1,
@@ -43,7 +43,7 @@ def teste_read_users_deve_retornar_lista_de_UserPublic(client):
 
 def teste_read_one_user_deve_retornar_200_UserPublic(client):
     response = client.get('/users/1')
-    assert response.status_code == HTTPStatus.OK
+    assert response.status_code == status.HTTP_200_OK
     assert response.json() == {
         'idusuario': 1,
         'usuario': 'testuser',
@@ -56,7 +56,7 @@ def teste_read_one_user_deve_retornar_200_UserPublic(client):
 
 def teste_read_one_user_erro_404(client):
     response = client.get('/users/2')
-    assert response.status_code == HTTPStatus.NOT_FOUND
+    assert response.status_code == status.HTTP_404_NOT_FOUND
     assert response.json() == {'detail': 'Usuário não encontrado!'}
 
 
@@ -72,7 +72,7 @@ def teste_update_user_deve_retornar_UserPublic(client):
         },
     )
 
-    assert response.status_code == HTTPStatus.OK
+    assert response.status_code == status.HTTP_200_OK
     assert response.json() == {
         'idusuario': 1,
         'usuario': 'putuser',
@@ -94,16 +94,16 @@ def teste_update_user_erro_404(client):
             'idcargo': 4,
         },
     )
-    assert response.status_code == HTTPStatus.NOT_FOUND
+    assert response.status_code == status.HTTP_404_NOT_FOUND
     assert response.json() == {'detail': 'Usuário não encontrado!'}
 
 
 def teste_delete_user_deve_retornar_No_Content(client):
     response = client.delete('/users/1')
-    assert response.status_code == HTTPStatus.NO_CONTENT
+    assert response.status_code == status.HTTP_204_NO_CONTENT
 
 
 def teste_delete_user_erro_404(client):
     response = client.delete('/users/2')
-    assert response.status_code == HTTPStatus.NOT_FOUND
+    assert response.status_code == status.HTTP_404_NOT_FOUND
     assert response.json() == {'detail': 'Usuário não encontrado!'}
