@@ -4,11 +4,11 @@ from pydantic import BaseModel, EmailStr
 
 
 class UserSchema(BaseModel):
-    usuario: str
-    senha: str
-    nome: str
+    username: str
+    passwd: str
+    person_name: str
     email: EmailStr
-    idcargo: int
+    idrole: int
 
 
 class UserDB(UserSchema):

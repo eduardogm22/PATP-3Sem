@@ -1,7 +1,7 @@
 from fastapi import APIRouter, status
 
-from schemas import UserList, UserPublic, UserSchema
-from services import create_users, delete_users, read_one_user, read_users, update_users
+from domain.schemas import UserList, UserPublic, UserSchema
+from domain.services import create_users, delete_users, read_one_user, read_users, update_users
 
 router = APIRouter()
 

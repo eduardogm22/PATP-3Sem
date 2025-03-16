@@ -2,7 +2,7 @@ from datetime import datetime
 
 from fastapi import HTTPException, status
 
-from schemas import UserDB, UserSchema
+from domain.schemas import UserDB, UserSchema
 
 database = []
 
