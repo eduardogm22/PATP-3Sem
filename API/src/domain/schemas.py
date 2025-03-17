@@ -8,27 +8,28 @@ class UserSchema(BaseModel):
     passwd: str
     person_name: str
     email: EmailStr
-    idrole: int
+    roleid: int
 
 
-class UserDB(UserSchema):
-    idusuario: int
-    data_criacao: datetime
-
-
-class UserPublic(BaseModel):
-    idusuario: int
-    usuario: str
-    nome: str
+class UserPublicSchema(BaseModel):
+    userid: int
+    username: str
+    passwd: str
     email: EmailStr
-    data_criacao: datetime
-    idcargo: int
-
-
-class UserList(BaseModel):
-    users: list[UserPublic]
+    roleid: int
+    created_at: datetime
 
 
 class UserLoginSchema(BaseModel):
-    login: str
-    senha: str
+    username: str
+    passwd: str
+
+
+class UserAuthorized:
+    acess_token: str
+    refresh_token: str
+    person_name: str
+
+
+class UserList(BaseModel):
+    users: list[UserPublicSchema]

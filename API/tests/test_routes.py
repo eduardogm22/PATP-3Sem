@@ -1,8 +1,9 @@
 from datetime import datetime
+
 from fastapi import status
 
 
-def test_create_user_deve_retornar_UserPublic(client):
+def test_create_user_deve_retornar_UserPublicSchema(client):
     response = client.post(
         '/users/',
         json={
@@ -25,7 +26,7 @@ def test_create_user_deve_retornar_UserPublic(client):
     }
 
 
-def teste_read_users_deve_retornar_lista_de_UserPublic(client):
+def teste_read_users_deve_retornar_lista_de_UserPublicSchema(client):
     response = client.get('/users/')
 
     assert response.status_code == status.HTTP_200_OK
@@ -41,7 +42,7 @@ def teste_read_users_deve_retornar_lista_de_UserPublic(client):
     ]
 
 
-def teste_read_one_user_deve_retornar_200_UserPublic(client):
+def teste_read_one_user_deve_retornar_200_UserPublicSchema(client):
     response = client.get('/users/1')
     assert response.status_code == status.HTTP_200_OK
     assert response.json() == {
@@ -60,7 +61,7 @@ def teste_read_one_user_erro_404(client):
     assert response.json() == {'detail': 'Usuário não encontrado!'}
 
 
-def teste_update_user_deve_retornar_UserPublic(client):
+def teste_update_user_deve_retornar_UserPublicSchema(client):
     response = client.put(
         '/users/1',
         json={
