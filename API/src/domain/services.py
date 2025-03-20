@@ -22,7 +22,7 @@ class AuthUseCases:
         self,
         user_payload: UserLoginSchema,
         token_expires_in_min: int = 30,
-        refresh_expires_in_days: int = 7,
+        refresh_expires_in_days: int = 1,
     ):
         user_on_db = (
             self.db_session.query(UserModel)

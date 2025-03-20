@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
-from sqlalchemy import func
+from sqlalchemy import func, String
 from sqlalchemy.orm import Mapped, mapped_column, registry
 
 table_registry = registry()
@@ -11,11 +11,9 @@ table_registry = registry()
 class UserModel:
     __tablename__ = 'users'
     userid: Mapped[Optional[int]] = mapped_column(init=False, primary_key=True)
-    username: Mapped[str] = mapped_column(unique=True, nullable=False)
-    passwd: Mapped[str] = mapped_column(nullable=False)
-    person_name: Mapped[str]
-    email: Mapped[str]
+    username: Mapped[str] = mapped_column(String(50), unique=True, nullable=False)
+    passwd: Mapped[str] = mapped_column(String(255), nullable=False)
+    person_name: Mapped[str] = mapped_column(String(150))
+    email: Mapped[str] = mapped_column(String(150))
     roleid: Mapped[int] = mapped_column(nullable=False)
-    created_at: Mapped[datetime] = mapped_column(
-        server_default=func.now(), default=datetime.now()
-    )
+    created_at: Mapped[datetime] = mapped_column(default=datetime.now())
