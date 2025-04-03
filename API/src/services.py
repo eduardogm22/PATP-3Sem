@@ -2,13 +2,13 @@ from datetime import datetime, timedelta, timezone
 
 from decouple import config
 from fastapi import HTTPException, status
-from jose import jwt
+from jose import JWTError, jwt
 from passlib.context import CryptContext
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
-from domain.schemas import UserLoginSchema, UserSchema
-from infrastructure.database.models import UserModel
+from schemas import UserLoginSchema, UserSchema
+from models import UserModel
 
 crypt_context = CryptContext(schemes=['argon2'])
 # caso trocar a chave, pôr o parametro deprecated='auto'
@@ -17,6 +17,9 @@ crypt_context = CryptContext(schemes=['argon2'])
 class AuthUseCases:
     def __init__(self, db_session: Session):
         self.db_session = db_session
+
+        self.SECRET_KEY = config('SECRET_KEY')
+        self.ALGORITHM = config('ALGORITHM')
 
     def auth_user(
         self,
@@ -29,9 +32,6 @@ class AuthUseCases:
             .filter_by(username=user_payload.username)
             .first()
         )
-
-        SECRET_KEY = config('SECRET_KEY')
-        ALGORITHM = config('ALGORITHM')
 
         if user_on_db is None:
             raise HTTPException(
@@ -53,24 +53,53 @@ class AuthUseCases:
         )
 
         token_payload = {
-            'user_id': user_on_db.username,
+            'userid': user_on_db.userid,
             'role': user_on_db.roleid,
-            'token_exp': token_exp.timestamp(),
+            'exp': token_exp.timestamp(),
         }
 
         refresh_payload = {
-            'user_id': user_on_db.username,
+            'userid': user_on_db.userid,
             'role': user_on_db.roleid,
-            'refresh_exp': refresh_exp.timestamp(),
+            'exp': refresh_exp.timestamp(),
         }
 
-        acess_token = jwt.encode(token_payload, SECRET_KEY, ALGORITHM)
-        refresh_token = jwt.encode(refresh_payload, SECRET_KEY, ALGORITHM)
+        access_token = jwt.encode(
+            token_payload, self.SECRET_KEY, self.ALGORITHM
+        )
+        refresh_token = jwt.encode(
+            refresh_payload, self.SECRET_KEY, self.ALGORITHM
+        )
         return {
-            'acess_token': acess_token,
+            'access_token': access_token,
             'refresh_token': refresh_token,
             'person_name': user_on_db.person_name,
         }
+
+    def validate_token(self, access_token):
+        try:
+            # jwt.decode verifica automaticamente se o token
+            # expirou. Caso sim, da except
+            token_payload = jwt.decode(
+                access_token, self.SECRET_KEY, algorithms=[self.ALGORITHM]
+            )
+        except JWTError:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail='Token de acesso inválido! decode',
+            )
+        user_on_db = (
+            self.db_session.query(UserModel)
+            .filter_by(userid=token_payload['userid'])
+            .first()
+        )
+        if user_on_db is None:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail='Token de acesso inválido! user on db none',
+            )
+        return {'userid':user_on_db.userid,
+                'userrole':user_on_db.roleid}
 
 
 class UserUseCases:

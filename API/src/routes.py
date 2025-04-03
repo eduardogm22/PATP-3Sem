@@ -1,16 +1,19 @@
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, status, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
-from domain.schemas import UserLoginSchema, UserSchema
-from domain.services import AuthUseCases, UserUseCases
-from infrastructure.database.connection import get_db_session
+from schemas import UserLoginSchema, UserSchema
+from services import AuthUseCases, UserUseCases
+from dependecies import get_db_session, token_verifier
 
-router = APIRouter()
+login_router = APIRouter()
+router = APIRouter(dependencies=[Depends(token_verifier)])
 
+#Constantes dos cargos
+ADMIN = 1
 
-@router.post('/login')
+@login_router.post('/login')
 def auth_user_route(
     user_payload: OAuth2PasswordRequestForm = Depends(),
     session: Session = Depends(get_db_session),
@@ -27,8 +30,15 @@ def auth_user_route(
 
 @router.post('/users/')
 def create_users_route(
-    user_payload: UserSchema, session: Session = Depends(get_db_session)
+    user_payload: UserSchema, 
+    session: Session = Depends(get_db_session),
+    user_token_data: dict = Depends(token_verifier)
 ):
+    if user_token_data['userrole'] != ADMIN:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail='Acesso negado! Sem permissão para acessar esse recurso.'
+        )
     usr = UserUseCases(db_session=session)
     return JSONResponse(
         content=usr.create_users(user_payload),
