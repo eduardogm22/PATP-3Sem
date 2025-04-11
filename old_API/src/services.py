@@ -7,7 +7,7 @@ from passlib.context import CryptContext
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
-from schemas import UserLoginSchema, UserSchema
+from schemas import UserLoginSchema, UserSchema, UserPublicSchema
 from models import UserModel
 
 crypt_context = CryptContext(schemes=['argon2'])
@@ -86,7 +86,7 @@ class AuthUseCases:
         except JWTError:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail='Token de acesso inválido! decode',
+                detail='Token de acesso inválido!',
             )
         user_on_db = (
             self.db_session.query(UserModel)
@@ -96,10 +96,10 @@ class AuthUseCases:
         if user_on_db is None:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail='Token de acesso inválido! user on db none',
+                detail='Token de acesso inválido!',
             )
         return {'userid':user_on_db.userid,
-                'userrole':user_on_db.roleid}
+                'role':user_on_db.roleid}
 
 
 class UserUseCases:
@@ -133,8 +133,13 @@ class UserUseCases:
                 detail='Nome de usuário já em uso!',
             )
 
-    # def read_users():
-    #     return {'users': database}
+    def read_users(self):
+        users_on_db = (self.db_session
+            .query(UserModel)
+            .order_by(UserModel.userid)
+            .all()
+            )
+        return [UserPublicSchema.model_validate(user) for user in users_on_db]
 
     # def read_one_user(idusuario):
     #     if idusuario < 0 or idusuario > len(database):

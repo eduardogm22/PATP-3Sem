@@ -2,8 +2,9 @@ from fastapi import APIRouter, Depends, status, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
+from typing import List
 
-from schemas import UserLoginSchema, UserSchema
+from schemas import UserLoginSchema, UserSchema, UserPublicSchema
 from services import AuthUseCases, UserUseCases
 from dependecies import get_db_session, token_verifier
 
@@ -34,7 +35,7 @@ def create_users_route(
     session: Session = Depends(get_db_session),
     user_token_data: dict = Depends(token_verifier)
 ):
-    if user_token_data['userrole'] != ADMIN:
+    if user_token_data['role'] != ADMIN:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail='Acesso negado! Sem permissão para acessar esse recurso.'
@@ -46,9 +47,17 @@ def create_users_route(
     )
 
 
-# @router.get('/users/', response_model=UserList)
-# def read_users_route():
-#     return usr.read_users()
+@router.get('/users/', response_model=List[UserPublicSchema])
+def read_users_route(
+    session: Session = Depends(get_db_session),
+    user_token_data: dict = Depends(token_verifier)
+):
+    if user_token_data['role'] != ADMIN:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail='Acesso negado! Sem permissão para acessar esse recurso.')
+    usr = UserUseCases(db_session=session)
+    return usr.read_users()
 
 
 # @router.get('/users/{idusuario}', response_model=UserPublicSchema)

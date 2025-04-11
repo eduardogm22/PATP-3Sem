@@ -14,10 +14,12 @@ class UserSchema(BaseModel):
 class UserPublicSchema(BaseModel):
     userid: int
     username: str
-    passwd: str
     email: EmailStr
     roleid: int
     created_at: datetime
+    
+    class Config:
+        from_attributes = True
 
 
 class UserLoginSchema(BaseModel):
