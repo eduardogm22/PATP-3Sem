@@ -52,6 +52,14 @@ BEGIN
         );
 END$$
 DELIMITER ;
+
+INSERT INTO Cargos (nome)
+    VALUES 
+    ('dev'),
+    ('admin'),
+    ('registrador'),
+    ('visualizador');
+
 -- Usuarios
 create table Usuarios (     
     idUsuario VARCHAR(36) PRIMARY KEY, 

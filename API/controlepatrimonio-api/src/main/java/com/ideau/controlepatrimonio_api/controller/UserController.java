@@ -3,9 +3,10 @@ package com.ideau.controlepatrimonio_api.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ideau.controlepatrimonio_api.dto.UsuarioAlteraveisDTO;
+import com.ideau.controlepatrimonio_api.dto.UsuarioPublicoDTO;
 import com.ideau.controlepatrimonio_api.model.Usuario.Usuario;
 import com.ideau.controlepatrimonio_api.repositories.UserRepository;
-import com.ideau.controlepatrimonio_api.services.Services;
+import com.ideau.controlepatrimonio_api.services.UserServices;
 
 import java.util.List;
 
@@ -19,20 +20,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
-
-
 @RestController
 public class UserController {
     
     @Autowired   
     private UserRepository userRepository;
-    private Services services;
+    private UserServices services;
 
     @PostMapping("/users/")
-    public Usuario postUser(@RequestBody Usuario objUsuario) {
-
-    return userRepository.save(objUsuario);
+    public UsuarioPublicoDTO postUser(@RequestBody Usuario objUsuario) {
+        return services.CadastraUsuario(objUsuario, userRepository);
     }
 
     @GetMapping("/users/")
@@ -50,7 +47,7 @@ public class UserController {
         @PathVariable String idUsuario, 
         @RequestBody UsuarioAlteraveisDTO objUsuarioDTO) {
         
-        Usuario usuarioPut = services.trataPutUsuarios(objUsuarioDTO, userRepository, idUsuario);
+        Usuario usuarioPut = services.AtualizaUsuario(objUsuarioDTO, userRepository, idUsuario);
         if (usuarioPut == null) return ResponseEntity
                                      .status(HttpStatus.NOT_FOUND)
                                      .body("Usuário não encontrado!");

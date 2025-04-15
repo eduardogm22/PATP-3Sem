@@ -19,13 +19,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "Usuarios")
-@Table(name  = "Usuarios")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "idUsuario")
 @Getter
 @Setter
+@Entity(name = "Usuarios")
+@Table(name  = "Usuarios")
 public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -63,6 +63,6 @@ public class Usuario implements UserDetails {
     }
     @Override
     public String getPassword() {
-        throw new UnsupportedOperationException("Unimplemented method 'getPassword'");
+        return senha;
     }
 }
