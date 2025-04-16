@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
@@ -33,7 +34,7 @@ public class FiltroDeSeguranca extends OncePerRequestFilter {
             var tokenUsername = tokensService.validaToken(token);
             UserDetails usuario = userRepository.findByUsername(tokenUsername);
             var autenticacao = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
-            
+            SecurityContextHolder.getContext().setAuthentication(autenticacao);
         }
         filterChain.doFilter(request, response);
     }

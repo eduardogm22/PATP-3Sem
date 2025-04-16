@@ -1,5 +1,6 @@
 package com.ideau.controlepatrimonio_api.infra.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -16,18 +17,24 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class ConfiguracoesSeguranca {
+
+    private static final String ROTA_USUARIOS = "/users/";
+
+    @Autowired
+    FiltroDeSeguranca filtroDeSeguranca;
+    
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
     return httpSecurity
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/", "/login/").permitAll()
-            .requestMatchers(HttpMethod.POST, "/users/").hasRole("admin")
-            .requestMatchers(HttpMethod.GET, "/users/").hasRole("admin")                       
-            .requestMatchers(HttpMethod.PUT, "/users/").hasRole("visualizador")
-            .requestMatchers(HttpMethod.DELETE, "/users/").hasRole("admin")                       
+            .requestMatchers(HttpMethod.POST, ROTA_USUARIOS).hasRole("admin")
+            .requestMatchers(HttpMethod.GET, ROTA_USUARIOS).hasRole("admin")                       
+            .requestMatchers(HttpMethod.PUT, ROTA_USUARIOS).hasRole("visualizador")
+            .requestMatchers(HttpMethod.DELETE, ROTA_USUARIOS).hasRole("admin")                       
         )
-        .addFilterBefore(FiltroDeSeguranca, UsernamePasswordAuthenticationFilter.class)
+        .addFilterBefore(filtroDeSeguranca, UsernamePasswordAuthenticationFilter.class)
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .build();
     }

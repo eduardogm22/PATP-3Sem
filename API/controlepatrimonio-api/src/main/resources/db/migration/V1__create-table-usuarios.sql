@@ -1,3 +1,4 @@
+USE db_assets_control;
 -- Cargos
 CREATE TABLE Cargos (
     idCargo INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -53,6 +54,7 @@ BEGIN
 END$$
 DELIMITER ;
 
+set @idUsuarioLogado := 'Sistema';
 INSERT INTO Cargos (nome)
     VALUES 
     ('dev'),

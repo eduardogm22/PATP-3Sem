@@ -3,3 +3,4 @@ __pycache__/
 API/.env
 .vscode/settings.json
 API/APISpringBoot.code-workspace
+API/.vscode/settings.json

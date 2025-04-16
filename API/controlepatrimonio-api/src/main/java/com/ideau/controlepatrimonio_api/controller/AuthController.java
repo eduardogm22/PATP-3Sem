@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import com.ideau.controlepatrimonio_api.dto.AutenticacaoDTO;
+import com.ideau.controlepatrimonio_api.infra.security.TokensService;
+import com.ideau.controlepatrimonio_api.model.Usuario.Usuario;
 
 @RestController
 public class AuthController {
@@ -17,12 +19,14 @@ public class AuthController {
         @Autowired
         private AuthenticationManager authenticationManager;
 
+        @Autowired 
+        TokensService tokensService;
         @PostMapping("/login/")
-        public ResponseEntity login(@RequestBody @Valid AutenticacaoDTO objAuthDTO) {
+        public ResponseEntity<String> login(@RequestBody @Valid AutenticacaoDTO objAuthDTO) {
             var usernamePassword = new UsernamePasswordAuthenticationToken(objAuthDTO.username(), objAuthDTO.password());
             var autenticacao = this.authenticationManager.authenticate(usernamePassword);
-
-            return ResponseEntity.ok().build();
+            var token = tokensService.geraToken((Usuario) autenticacao.getPrincipal());
+            return ResponseEntity.ok(token);
         }
         
 }
