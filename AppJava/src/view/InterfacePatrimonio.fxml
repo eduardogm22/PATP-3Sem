@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="rootPane" prefHeight="955.0" prefWidth="1518.0" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AppJava.src.controller.InterfaceController">
+<BorderPane fx:id="rootPane" prefHeight="955.0" prefWidth="1518.0" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InterfaceController">
    <!-- Barra de título personalizada -->
    <top>
       <HBox alignment="CENTER_RIGHT" prefHeight="45.0" spacing="10" style="-fx-background-color: #2c3e50;">
@@ -41,7 +41,7 @@
 
    <!-- Menu lateral -->
    <left>
-      <VBox alignment="CENTER_LEFT" prefWidth="100.0" spacing="20.0" style="-fx-background-color: gray;">
+      <VBox alignment="CENTER_LEFT" prefWidth="100.0" spacing="20.0" style="-fx-background-color: #2c3e50;">
          <children>
             <Button fx:id="btnHome" onAction="#loadHome" text="Home" />
             <Button fx:id="btnTela1" onAction="#loadTela1" text="Tela 1" />
@@ -66,22 +66,13 @@
    <center>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Button mnemonicParsing="false" text="Button" />
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets right="30.0" />
-               </padding></HBox>
-            <HBox alignment="CENTER" prefHeight="150.0" spacing="210.0">
+            <HBox alignment="CENTER" prefHeight="150.0" spacing="210.0" style="-fx-background-color: #2c3e50;">
                <children>
                   <Button minHeight="60.0" minWidth="90.0" mnemonicParsing="false" text="BAG" />
                   <Button minHeight="60.0" minWidth="90.0" mnemonicParsing="false" text="LOGS" />
                   <Button minHeight="60.0" minWidth="90.0" mnemonicParsing="false" text="PATR" />
                   <Button minHeight="60.0" minWidth="90.0" mnemonicParsing="false" text="RLT" />
+                  <Button mnemonicParsing="false" text="Button" />
                </children></HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" VBox.vgrow="ALWAYS">
                <children>

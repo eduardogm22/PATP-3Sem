@@ -1,4 +1,4 @@
-package AppJava.src.controller;
+package controller;
 
 
 import javafx.fxml.FXML;
@@ -52,7 +52,7 @@ public class LoginController {
              quando instanciada a interface, ela recebe a largura e altura
              da tela exceto a barra de tarefa */
 
-            FXMLLoader interfaceLoader = new FXMLLoader(getClass().getResource("/AppJava/src/view/InterfacePatrimonio.fxml"));
+            FXMLLoader interfaceLoader = new FXMLLoader(getClass().getResource("/view/InterfacePatrimonio.fxml"));
             Parent interfaceRoot = interfaceLoader.load();
             Stage interfaceStage = new Stage();
             Scene interfaceScene = new Scene(interfaceRoot);

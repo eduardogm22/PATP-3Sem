@@ -1,4 +1,4 @@
-package AppJava.src.controller;
+package controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -74,17 +74,22 @@ public class InterfaceController {
     }
     @FXML
     private void loadTela1() throws IOException {
-        // Carregar o FXML de Tela 1
-        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/AppJava/src/view/tela1.fxml"));
-        loader1.setController(this);  // Garantir que o controlador está configurado corretamente
-        Region tela1 = loader1.load();
-        rootPane.setCenter(tela1);  // Substitui o conteúdo central
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/tela1.fxml"));
+        Region tela1 = loader.load();
+
+        BagController bagController = loader.getController();
+        bagController.setMainController(this);
+
+        rootPane.setCenter(tela1);
+    }
+    public BorderPane getRootPane() {
+        return rootPane;
     }
 
     @FXML
     private void loadTela2() throws IOException {
         // Carregar o FXML de Tela 2
-        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/AppJava/src/view/tela2.fxml"));
+        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/tela2.fxml"));
         loader2.setController(this);  // Garantir que o controlador está configurado corretamente
         Region tela2 = loader2.load();
         rootPane.setCenter(tela2);  // Substitui o conteúdo central
