@@ -4,34 +4,32 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.ideau.controlepatrimonio_api.model.Usuario.Usuario;
-
-import io.github.cdimascio.dotenv.Dotenv;
-
-
+import com.ideau.controlepatrimonio_api.model.Usuario.UsuarioAutenticado;
 
 @Service
-public class TokensService {
+public class JWTService {
 
-    private final Dotenv dotenv = Dotenv.load();
-    private final String secret = dotenv.get("SECRET_KEY");
-    
+    @Value("${api.security.token.secret}")
+    private String secret;
+        
     private Instant tempoExpToken () {
         return LocalDateTime.now().plusHours(tempoDuracaoTokenHrs).toInstant(ZoneOffset.of("-03:00"));
     }
     
     private int tempoDuracaoTokenHrs = 2;
 
-    public String geraToken(Usuario objUsuario) {
+    public String geraToken(UsuarioAutenticado usuarioAutenticado) {
         try {
             return JWT.create()
                 .withIssuer("controlepatrimonio_api")
-                .withSubject(objUsuario.getIdUsuario())                                
+                .withSubject(usuarioAutenticado.getUsername())                                
                 .withExpiresAt(tempoExpToken())
                 .sign(Algorithm.HMAC256(secret));
             

@@ -3,7 +3,7 @@ USE db_assets_control;
 CREATE TABLE Cargos (
     idCargo INTEGER PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(50) NOT NULL,
-    ativo TINYINT(1) DEFAULT 1    
+    ativo INTEGER(1) DEFAULT 1    
 );
 
 
@@ -57,10 +57,10 @@ DELIMITER ;
 set @idUsuarioLogado := 'Sistema';
 INSERT INTO Cargos (nome)
     VALUES 
-    ('dev'),
-    ('admin'),
-    ('registrador'),
-    ('visualizador');
+    ('DEV'),
+    ('ADMIN'),
+    ('REGISTRADOR'),
+    ('VISUALIZADOR');
 
 -- Usuarios
 create table Usuarios (     
@@ -71,7 +71,7 @@ create table Usuarios (
     email VARCHAR(150),
     idCargo INTEGER NOT NULL,
     dataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP,
-    ativo TINYINT(1) DEFAULT 1,
+    ativo Integer(1) DEFAULT 1,
     CONSTRAINT fk_usr_idCargo FOREIGN KEY (idCargo) REFERENCES Cargos(idCargo)
     );
 

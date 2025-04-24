@@ -1,7 +1,7 @@
-package com.ideau.controlepatrimonio_api.dto;
+package com.ideau.controlepatrimonio_api.model.Usuario.dto;
 
 public record UsuarioAlteraveisDTO(
-    String usuario,
+    String username,
     String senha,
     String nomeCompleto,
     String email,

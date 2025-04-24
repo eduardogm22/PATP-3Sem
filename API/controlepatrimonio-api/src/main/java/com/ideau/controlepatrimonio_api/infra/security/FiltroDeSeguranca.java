@@ -2,15 +2,14 @@ package com.ideau.controlepatrimonio_api.infra.security;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.lang.NonNull;
 
-import com.ideau.controlepatrimonio_api.repositories.UserRepository;
+import com.ideau.controlepatrimonio_api.services.UserDetailsServiceImpl;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -20,20 +19,29 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class FiltroDeSeguranca extends OncePerRequestFilter {
 
-    @Autowired
-    private TokensService tokensService;
+    private final JWTService jwtService;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserDetailsServiceImpl userDetailsService;
+
+    FiltroDeSeguranca(
+        JWTService jwtService, 
+        UserDetailsServiceImpl userDetailsService) {
+        this.jwtService = jwtService;    
+        this.userDetailsService = userDetailsService;
+    }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(
+        @NonNull HttpServletRequest request,
+        @NonNull HttpServletResponse response, 
+        @NonNull FilterChain filterChain)
             throws ServletException, IOException {
         var token = this.dadosToken(request);
         if (token != null) {
-            var tokenUsername = tokensService.validaToken(token);
-            UserDetails usuario = userRepository.findByUsername(tokenUsername);
-            var autenticacao = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
+            var tokenUsername = jwtService.validaToken(token);
+            UserDetails usuario = userDetailsService.loadUserByUsername(tokenUsername);
+            var autenticacao = new UsernamePasswordAuthenticationToken(
+                usuario, null, usuario.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(autenticacao);
         }
         filterChain.doFilter(request, response);

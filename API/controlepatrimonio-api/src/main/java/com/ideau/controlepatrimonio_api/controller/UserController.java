@@ -2,15 +2,14 @@ package com.ideau.controlepatrimonio_api.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ideau.controlepatrimonio_api.dto.UsuarioAlteraveisDTO;
-import com.ideau.controlepatrimonio_api.dto.UsuarioPublicoDTO;
 import com.ideau.controlepatrimonio_api.model.Usuario.Usuario;
+import com.ideau.controlepatrimonio_api.model.Usuario.dto.UsuarioAlteraveisDTO;
+import com.ideau.controlepatrimonio_api.model.Usuario.dto.UsuarioPublicoDTO;
 import com.ideau.controlepatrimonio_api.repositories.UserRepository;
 import com.ideau.controlepatrimonio_api.services.UserServices;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,9 +22,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RestController
 public class UserController {
     
-    @Autowired   
-    private UserRepository userRepository;
-    private UserServices services;
+    private final UserRepository userRepository;
+    private final UserServices services;
+
+    UserController(UserRepository userRepository, UserServices services) {
+        this.userRepository = userRepository;
+        this.services = services;
+    }
 
     @PostMapping("/users/")
     public UsuarioPublicoDTO postUser(@RequestBody Usuario objUsuario) {
