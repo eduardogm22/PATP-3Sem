@@ -31,5 +31,4 @@ public class Usuario {
     private Integer idCargo;    
     private LocalDateTime dataCriacao;
     private Integer ativo;
-
 }

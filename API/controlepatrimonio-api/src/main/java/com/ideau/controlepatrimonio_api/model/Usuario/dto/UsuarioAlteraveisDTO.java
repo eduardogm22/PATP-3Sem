@@ -5,5 +5,6 @@ public record UsuarioAlteraveisDTO(
     String senha,
     String nomeCompleto,
     String email,
-    Integer idCargo
+    Integer idCargo,
+    Integer ativo
 ) {}

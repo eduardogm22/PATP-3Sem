@@ -9,7 +9,11 @@ import java.util.Map;
 import org.flywaydb.core.Flyway;
 
 public class Utils {
-    public boolean isNullOrEmpty(Object obj) {
+    private Utils() {
+        throw new UnsupportedOperationException("Classe utilitária - não pode ser instanciada.");
+    }
+    
+    public static boolean isNullOrEmpty(Object obj) {
         if (obj == null) return true;
         if (obj instanceof String) return ((String) obj).trim().isEmpty();
         if (obj instanceof Number) return ((Number) obj).intValue() == 0;
@@ -32,5 +36,11 @@ public class Utils {
             .dataSource("jdbc:mysql://localhost:3306/db_assets_control", "root", "1404")
             .load()
             .repair();
+    }
+    public static String formataAtivo(int intAtivo) {
+        if (intAtivo == 1)
+            return "Ativo"; 
+        else
+            return "Inativo";
     }
 }

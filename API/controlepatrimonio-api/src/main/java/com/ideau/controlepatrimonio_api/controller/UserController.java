@@ -32,30 +32,24 @@ public class UserController {
 
     @PostMapping("/users/")
     public UsuarioPublicoDTO postUser(@RequestBody Usuario objUsuario) {
-        return services.CadastraUsuario(objUsuario, userRepository);
+        return services.postUserService(objUsuario, userRepository);
     }
 
     @GetMapping("/users/")
-    public List<Usuario> getAllUsers() {
-        return userRepository.findAll();
+    public List<UsuarioPublicoDTO> getAllUsers(@PathVariable String retornaInativos) {
+        return getAllUsersService(retornaInativos);
     }
     
     @GetMapping("/users/{idUsuario}")
-    public Usuario getUserById(@PathVariable String idUsuario) {
+    public UsuarioPublicoDTO getUserById(@PathVariable String idUsuario) {
         return userRepository.findByIdUsuario(idUsuario);
     }
     
     @PutMapping("/users/{idUsuario}")
-    public ResponseEntity<String> putUser(
+    public UsuarioPublicoDTO putUser(
         @PathVariable String idUsuario, 
         @RequestBody UsuarioAlteraveisDTO objUsuarioDTO) {
-        
-        Usuario usuarioPut = services.AtualizaUsuario(objUsuarioDTO, userRepository, idUsuario);
-        if (usuarioPut == null) return ResponseEntity
-                                     .status(HttpStatus.NOT_FOUND)
-                                     .body("Usuário não encontrado!");
-
-        return ResponseEntity.ok("Usuário atualizado com sucesso!");
+        return services.putUserService(objUsuarioDTO, userRepository, idUsuario);
     }
 
     @DeleteMapping("/users/{idUsuario}")

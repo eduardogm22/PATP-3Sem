@@ -7,5 +7,6 @@ public record UsuarioPublicoDTO (
     String nomeCompleto,
     String email,
     String nomeCargo,
-    LocalDateTime dataCriacao
+    LocalDateTime dataCriacao,
+    String ativo
 ) {}
