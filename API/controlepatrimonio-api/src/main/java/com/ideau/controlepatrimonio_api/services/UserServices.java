@@ -2,6 +2,8 @@ package com.ideau.controlepatrimonio_api.services;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,7 +18,7 @@ import com.ideau.controlepatrimonio_api.utils.Utils;
 
 @Service
 public class UserServices {
-
+    Logger logger = LoggerFactory.getLogger(UserServices.class);
     private final UserRepository userRepository;
     private final CargoRepository cargoRepository;
 
@@ -25,13 +27,16 @@ public class UserServices {
         this.userRepository = userRepository;
     }
     
-    public UsuarioPublicoDTO postUserService(Usuario objUsuario, UserRepository userRepository) {
+    public UsuarioPublicoDTO postUserService(Usuario objUsuario) {
         try {
             if (userRepository.findByUsername(objUsuario.getUsername()).isPresent()) {
                 throw new HTTPException(HttpStatus.CONFLICT, "Nome de usuário já em uso!");
             }
             String senhaCriptografada = new BCryptPasswordEncoder().encode(objUsuario.getSenha());
             objUsuario.setSenha(senhaCriptografada);
+            if (objUsuario.getAtivo() == null) {
+                objUsuario.setAtivo(1);
+            } //Caso não especifique, presupõe-se que é ativo
             Usuario novoUsuario = userRepository.save(objUsuario);
             return new UsuarioPublicoDTO(
                 novoUsuario.getUsername(),
@@ -48,18 +53,37 @@ public class UserServices {
         }
     }
 
-    public List<UsuarioPublicoDTO> getAllUsersService(String retornaInativo) {
-        
+    public List<UsuarioPublicoDTO> getAllUsersService(Integer ativo) {
+        List<Usuario> usuarios;
+        if (ativo == 2) {
+            logger.info("Buscando todos os usuários...");
+            usuarios = userRepository.findAll();
+        } else {
+            logger.info("Buscando usuários, filtrando por ativos e inativos...");
+            usuarios = userRepository.findAllByAtivo(ativo);
+        }
+        return usuarios.stream()
+        .map(usuario -> new UsuarioPublicoDTO(
+            usuario.getUsername(),
+            usuario.getNomeCompleto(),
+            usuario.getEmail(),
+            cargoRepository.findNomeById(usuario.getIdCargo()),
+            usuario.getDataCriacao(),
+            Utils.formataAtivo(usuario.getAtivo())
+        ))
+        .toList();
     }
 
-    public UsuarioPublicoDTO putUserService(UsuarioAlteraveisDTO objUsuarioDTO, UserRepository userRepository, String idUsuario) {
+    public UsuarioPublicoDTO putUserService(UsuarioAlteraveisDTO objUsuarioDTO, String idUsuario) {
         try {
             Usuario usuarioNoBd = userRepository.findByIdUsuario(idUsuario);
             if (usuarioNoBd == null) {
                 throw new HTTPException(HttpStatus.NOT_FOUND, "Usuário não encontrado!");
             }
             if (!Utils.isNullOrEmpty(objUsuarioDTO.username())) usuarioNoBd.setUsername(objUsuarioDTO.username());      
-            if (!Utils.isNullOrEmpty(objUsuarioDTO.senha())) usuarioNoBd.setSenha(objUsuarioDTO.senha());      
+            if (!Utils.isNullOrEmpty(objUsuarioDTO.senha())) {                
+                usuarioNoBd.setSenha(new BCryptPasswordEncoder().encode(objUsuarioDTO.senha()));
+            }      
             if (!Utils.isNullOrEmpty(objUsuarioDTO.nomeCompleto())) usuarioNoBd.setNomeCompleto(objUsuarioDTO.nomeCompleto());      
             if (!Utils.isNullOrEmpty(objUsuarioDTO.email())) usuarioNoBd.setEmail(objUsuarioDTO.email());
             if (!Utils.isNullOrEmpty(objUsuarioDTO.ativo())) usuarioNoBd.setAtivo(objUsuarioDTO.ativo());     

@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class ConfiguracoesSeguranca {
 
-    private static final String ROTA_USUARIOS = "/users/";
+    private static final String ROTA_USUARIOS = "/users/**";
 
     final FiltroDeSeguranca filtroDeSeguranca;
 

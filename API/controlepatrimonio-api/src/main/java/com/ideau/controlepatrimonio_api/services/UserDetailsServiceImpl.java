@@ -1,10 +1,14 @@
 package com.ideau.controlepatrimonio_api.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.ideau.controlepatrimonio_api.infra.exceptions.HTTPException;
 import com.ideau.controlepatrimonio_api.model.Usuario.Usuario;
 import com.ideau.controlepatrimonio_api.model.Usuario.UsuarioAutenticado;
 import com.ideau.controlepatrimonio_api.repositories.CargoRepository;
@@ -13,7 +17,7 @@ import com.ideau.controlepatrimonio_api.repositories.UserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    
+    Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
     private final UserRepository userRepository;
     private final CargoRepository cargoRepository;
     
@@ -28,17 +32,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             Usuario usuario = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
     
-            System.out.println("Usuário encontrado: " + usuario.getUsername());
+            logger.info("Usuário encontrado: {}", usuario.getUsername());
     
             String nomeCargo = cargoRepository.findNomeById(usuario.getIdCargo());
-            System.out.println("Cargo encontrado: " + nomeCargo);
+            logger.info("Cargo encontrado: {}", nomeCargo);
     
             return new UsuarioAutenticado(usuario, nomeCargo);
     
         } catch (Exception e) {
-            System.out.println("ERRO NA AUTENTICAÇÃO:");
-            e.printStackTrace(); // isso vai te mostrar o stack trace no terminal
-            throw e; // relança para o Spring capturar
+            throw new HTTPException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 }

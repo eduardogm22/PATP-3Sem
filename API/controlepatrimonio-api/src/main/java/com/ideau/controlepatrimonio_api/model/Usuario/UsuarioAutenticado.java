@@ -3,12 +3,14 @@ package com.ideau.controlepatrimonio_api.model.Usuario;
 import java.util.Collection;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class UsuarioAutenticado implements UserDetails {
-
+    Logger logger = LoggerFactory.getLogger(UsuarioAutenticado.class);
     private final Usuario usuario;
     private final String nomeCargo;
 
@@ -19,7 +21,7 @@ public class UsuarioAutenticado implements UserDetails {
 
        @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        System.out.println("getAuthorities: " + nomeCargo);
+        logger.info("getAuthorities: {}", nomeCargo);
 
         return switch (nomeCargo) {
             case "DEV" -> List.of (                
