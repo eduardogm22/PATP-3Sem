@@ -12,8 +12,10 @@ import com.ideau.controlepatrimonio_api.infra.exceptions.HTTPException;
 import com.ideau.controlepatrimonio_api.model.Usuario.Usuario;
 import com.ideau.controlepatrimonio_api.model.Usuario.dto.UsuarioAlteraveisDTO;
 import com.ideau.controlepatrimonio_api.model.Usuario.dto.UsuarioPublicoDTO;
+import com.ideau.controlepatrimonio_api.repositories.AuditoriaRepository;
 import com.ideau.controlepatrimonio_api.repositories.CargoRepository;
 import com.ideau.controlepatrimonio_api.repositories.UserRepository;
+import com.ideau.controlepatrimonio_api.utils.RetornaIDpeloUsername;
 import com.ideau.controlepatrimonio_api.utils.Utils;
 
 @Service
@@ -21,10 +23,17 @@ public class UserServices {
     Logger logger = LoggerFactory.getLogger(UserServices.class);
     private final UserRepository userRepository;
     private final CargoRepository cargoRepository;
+    private final AuditoriaRepository auditoriaRepository;
+    private final RetornaIDpeloUsername retornaIDpeloUsername;
 
-    UserServices(UserRepository userRepository, CargoRepository cargoRepository) {
+    UserServices(
+        UserRepository userRepository, 
+        CargoRepository cargoRepository,
+        AuditoriaRepository auditoriaRepository) {
         this.cargoRepository = cargoRepository;
         this.userRepository = userRepository;
+        this.auditoriaRepository = auditoriaRepository;
+        this.retornaIDpeloUsername = new RetornaIDpeloUsername(userRepository);
     }
     
     public UsuarioPublicoDTO postUserService(Usuario objUsuario) {
@@ -37,8 +46,10 @@ public class UserServices {
             if (objUsuario.getAtivo() == null) {
                 objUsuario.setAtivo(1);
             } //Caso não especifique, presupõe-se que é ativo
+
             Usuario novoUsuario = userRepository.save(objUsuario);
             return new UsuarioPublicoDTO(
+                novoUsuario.getIdUsuario(),
                 novoUsuario.getUsername(),
                 novoUsuario.getNomeCompleto(),
                 novoUsuario.getEmail(),
@@ -64,6 +75,7 @@ public class UserServices {
         }
         return usuarios.stream()
         .map(usuario -> new UsuarioPublicoDTO(
+            usuario.getIdUsuario(),
             usuario.getUsername(),
             usuario.getNomeCompleto(),
             usuario.getEmail(),
@@ -89,6 +101,7 @@ public class UserServices {
             if (!Utils.isNullOrEmpty(objUsuarioDTO.ativo())) usuarioNoBd.setAtivo(objUsuarioDTO.ativo());     
             userRepository.save(usuarioNoBd);
             return new UsuarioPublicoDTO(
+                usuarioNoBd.getIdUsuario(),
                 usuarioNoBd.getUsername(),
                 usuarioNoBd.getNomeCompleto(),
                 usuarioNoBd.getEmail(),

@@ -12,7 +12,7 @@ public class Utils {
     private Utils() {
         throw new UnsupportedOperationException("Classe utilitária - não pode ser instanciada.");
     }
-    
+
     public static boolean isNullOrEmpty(Object obj) {
         if (obj == null) return true;
         if (obj instanceof String) return ((String) obj).trim().isEmpty();

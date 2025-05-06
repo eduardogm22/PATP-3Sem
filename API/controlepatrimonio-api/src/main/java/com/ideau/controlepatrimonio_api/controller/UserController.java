@@ -53,6 +53,7 @@ public class UserController {
     public UsuarioPublicoDTO getUserById(@PathVariable String idUsuario) {
         Usuario usuarioNoBd = userRepository.findByIdUsuario(idUsuario);
         return new UsuarioPublicoDTO(
+            usuarioNoBd.getIdUsuario(),
             usuarioNoBd.getUsername(),
             usuarioNoBd.getNomeCompleto(),
             usuarioNoBd.getEmail(),
