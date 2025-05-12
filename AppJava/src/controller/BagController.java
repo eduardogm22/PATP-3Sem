@@ -20,7 +20,7 @@ public class BagController {
 
     @FXML
     private void abrirCadastro() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/tela2.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PreviaInventarioPatrimonio.fxml"));
         Region telaCadastro = loader.load();
 
         // Acessa o BorderPane da Interface Principal e substitui o conteúdo central
