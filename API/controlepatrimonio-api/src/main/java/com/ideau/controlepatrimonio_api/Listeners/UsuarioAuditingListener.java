@@ -17,7 +17,7 @@ import jakarta.persistence.PostUpdate;
 public class UsuarioAuditingListener {
 
     @Autowired
-    private UsuarioAuditRepository auditRepository;
+    private AuditoriaRepository auditRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -30,7 +30,7 @@ public class UsuarioAuditingListener {
     @PostUpdate
     public void onPostUpdate(Usuario usuario) {
         // Busque o estado anterior do usuário
-        Usuario oldUser = UserRepository.findByIdUsuario(usuario.getIdUsuario());
+        Usuario oldUser = userRepository.findByIdUsuario(usuario.getIdUsuario());
         salvaAuditoria(usuario, "update", oldUser);
     }
 
@@ -76,7 +76,7 @@ public class UsuarioAuditingListener {
             );
         }
 
-        AuditoriaRepository.save(audit);
+        auditRepository.save(audit);
     }
 }
 
