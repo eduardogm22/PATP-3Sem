@@ -1,6 +1,6 @@
 USE db_assets_control;
 -- Cargos
-CREATE TABLE Cargos (
+/*CREATE TABLE Cargos (
     idCargo INTEGER PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(50) NOT NULL,
     ativo INTEGER(1) DEFAULT 1    

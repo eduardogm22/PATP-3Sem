@@ -32,9 +32,9 @@ public class ConfiguracoesSeguranca {
         .authorizeHttpRequests(auth -> auth
         .requestMatchers("/", "/login/").permitAll()
         .requestMatchers(HttpMethod.POST, ROTA_USUARIOS).permitAll()//hasRole("ADMIN")
-        .requestMatchers(HttpMethod.GET, ROTA_USUARIOS).hasRole("ADMIN")                       
-        .requestMatchers(HttpMethod.PUT, ROTA_USUARIOS).hasRole("VISUALIZADOR")
-        .requestMatchers(HttpMethod.DELETE, ROTA_USUARIOS).hasRole("ADMIN")                       
+        .requestMatchers(HttpMethod.GET, ROTA_USUARIOS).permitAll()//.hasRole("ADMIN")                       
+        .requestMatchers(HttpMethod.PUT, ROTA_USUARIOS).permitAll()//.hasRole("VISUALIZADOR")
+        .requestMatchers(HttpMethod.DELETE, ROTA_USUARIOS).permitAll()//.hasRole("ADMIN")                       
         //.anyRequest().permitAll()
         )
         .addFilterBefore(filtroDeSeguranca, UsernamePasswordAuthenticationFilter.class)
