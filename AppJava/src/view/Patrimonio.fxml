@@ -9,23 +9,29 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="controller.BagController">
+<StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.2" fx:controller="controller.BagController">
 
    <children>
-      <VBox>
-         <children>
-            <HBox alignment="CENTER" fillHeight="false" prefHeight="150.0" spacing="210.0" style="-fx-background-color: #2c3e50;">
+      <VBox VBox.vgrow="ALWAYS">
+      <children>
+         <HBox alignment="CENTER" fillHeight="false" prefHeight="120.0" spacing="210.0" style="-fx-background-color: #2c3e50;">
                <children>
-                  <Button minHeight="60.0" minWidth="90.0" mnemonicParsing="false" text="BAG" />
-                  <Button minHeight="60.0" minWidth="90.0" mnemonicParsing="false" text="LOGS" />
-                  <Button minHeight="60.0" minWidth="90.0" mnemonicParsing="false" text="PATR" />
-                  <Button minHeight="60.0" minWidth="90.0" mnemonicParsing="false" text="RLT" />
+                  <Button minHeight="45.0" minWidth="60.0" mnemonicParsing="false" text="BAG" />
+                  <Button minHeight="45.0" minWidth="60.0" mnemonicParsing="false" text="LOGS" />
+                  <Button minHeight="45.0" minWidth="60.0" mnemonicParsing="false" text="PATR" />
+                  <Button minHeight="45.0" minWidth="60.0" mnemonicParsing="false" text="RLT" />
                   <Button mnemonicParsing="false" text="Button" />
                </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="30.0" />
+               </padding>
             </HBox>
             <VBox>
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" VBox.vgrow="ALWAYS">
+                  <HBox alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="0.0" spacing="50.0" VBox.vgrow="ALWAYS">
                      <children>
                         <HBox alignment="CENTER_LEFT" spacing="45.0">
                            <children>
@@ -46,17 +52,16 @@
                               <Insets left="150.0" />
                            </HBox.margin>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam auctor lorem felis, vel ullamcorper tellus consequat sed. Aliquam dictum fermentum lacinia. Nulla elit leo, vestibulum a lacus eu, ultricies sagittis lectus. Suspendisse odio nibh, porta ac fringilla vitae, mollis eu tortor. Donec rutrum posuere ante, ullamcorper fringilla ex hendrerit in. Phasellus et ipsum sollicitudin dolor aliquet pharetra. Donec a velit et enim tincidunt egestas. Integer sodales vestibulum neque faucibus pellentesque. Sed et vehicula nisi. Vestibulum id aliquet risus." wrappingWidth="376.13671875" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="666.0" VBox.vgrow="ALWAYS">
+                  <HBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS">
                      <children>
-                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="666.0" HBox.hgrow="ALWAYS">
+                        <VBox maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS">
                            <children>
-                              <TableView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                              <TableView minHeight="0.0" minWidth="0.0" VBox.vgrow="ALWAYS">
                                 <columns>
                                   <TableColumn prefWidth="75.0" text="C1" />
                                   <TableColumn prefWidth="75.0" text="C2" />
@@ -67,9 +72,10 @@
                               <Insets bottom="15.0" left="90.0" right="15.0" top="15.0" />
                            </padding>
                         </VBox>
-                        <VBox alignment="CENTER" spacing="30.0" HBox.hgrow="ALWAYS">
+                        <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
                            <children>
-                              <Button text="CAD" onAction="#abrirCadastro" fx:id="btnCad"/>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam auctor lorem felis, vel ullamcorper tellus consequat sed. Aliquam dictum fermentum lacinia. Nulla elit leo, vestibulum a lacus eu, ultricies sagittis lectus. Suspendisse odio nibh, porta ac fringilla vitae, mollis eu tortor. Donec rutrum posuere ante, ullamcorper fringilla ex hendrerit in. Phasellus et ipsum sollicitudin dolor aliquet pharetra. Donec a velit et enim tincidunt egestas. Integer sodales vestibulum neque faucibus pellentesque. Sed et vehicula nisi. " wrappingWidth="376.13671875" />
+                              <Button fx:id="btnCad" onAction="#abrirCadastro" text="CAD" />
                               <Button mnemonicParsing="false" text="TESTE 2" />
                            </children>
                         </VBox>
