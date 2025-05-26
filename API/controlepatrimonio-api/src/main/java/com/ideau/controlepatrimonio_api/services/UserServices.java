@@ -66,6 +66,7 @@ public class UserServices {
 
     public List<UsuarioPublicoDTO> getAllUsersService(Integer ativo) {
         List<Usuario> usuarios;
+        if (ativo == null) ativo = 2;
         if (ativo == 2) {
             logger.info("Buscando todos os usuários...");
             usuarios = userRepository.findAll();
@@ -73,6 +74,7 @@ public class UserServices {
             logger.info("Buscando usuários, filtrando por ativos e inativos...");
             usuarios = userRepository.findAllByAtivo(ativo);
         }
+        logger.info("usuarios.stream");
         return usuarios.stream()
         .map(usuario -> new UsuarioPublicoDTO(
             usuario.getIdUsuario(),

@@ -1,4 +1,12 @@
 USE db_assets_control;
+set @idUsuarioLogado := 'Sistema';
+INSERT INTO Cargos (nome)
+    VALUES 
+    ('DEV'),
+    ('ADMIN'),
+    ('REGISTRADOR'),
+    ('VISUALIZADOR');
+
 -- Cargos
 /*CREATE TABLE Cargos (
     idCargo INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -54,13 +62,6 @@ BEGIN
 END$$
 DELIMITER ;
 
-set @idUsuarioLogado := 'Sistema';
-INSERT INTO Cargos (nome)
-    VALUES 
-    ('DEV'),
-    ('ADMIN'),
-    ('REGISTRADOR'),
-    ('VISUALIZADOR');
 
 -- Usuarios
 create table Usuarios (     
