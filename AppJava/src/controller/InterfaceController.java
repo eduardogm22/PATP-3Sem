@@ -1,5 +1,4 @@
 package controller;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -8,7 +7,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
-
 import java.io.IOException;
 
 
@@ -68,27 +66,40 @@ public class InterfaceController {
     private void loadHome() throws IOException {
         rootPane.setCenter(initialCenterContent);
     }
+
     @FXML
-    private void loadTela1() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Patrimonio.fxml"));
-        Region tela1 = loader.load();
-
-        BagController bagController = loader.getController();
-        bagController.setMainController(this);
-
-        rootPane.setCenter(tela1);
+    private void loadTela1() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Patrimonio.fxml"));
+            Region tela1 = loader.load();
+            BagController bagController = loader.getController();
+            bagController.setMainController(this);
+            rootPane.setCenter(tela1);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Erro ao carregar Tela 1: " + e.getMessage());
+        }
     }
+
+    @FXML
+    private void cadItem() throws IOException {
+        FXMLLoader loaderItem = new FXMLLoader(getClass().getResource("/view/CadastroItensPatrimonio.fxml"));
+        Region cadItemTela = loaderItem.load();
+        rootPane.setCenter(cadItemTela);
+    }
+
+
     public BorderPane getRootPane() {
         return rootPane;
     }
 
     @FXML
-    private void loadTela2() throws IOException {
+    private void previewInventario() throws IOException {
         // Carregar o FXML de Tela 2
-        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/PreviaInventarioPatrimonio.fxml"));
-        loader2.setController(this);  // Garantir que o controlador está configurado corretamente
-        Region tela2 = loader2.load();
-        rootPane.setCenter(tela2);  // Substitui o conteúdo central
+        FXMLLoader prevInventario = new FXMLLoader(getClass().getResource("/view/PreviaInventarioPatrimonio.fxml"));
+        Region PrevInventario = prevInventario.load();
+        PreviewBagController previaController = prevInventario.getController();
+        previaController.setMainController(this);
+        rootPane.setCenter(PrevInventario);  // Substitui o conteúdo central
     }
-
 }

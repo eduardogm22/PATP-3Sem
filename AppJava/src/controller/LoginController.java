@@ -1,6 +1,9 @@
 package controller;
 
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -17,6 +20,12 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class LoginController {
 
@@ -33,15 +42,14 @@ public class LoginController {
 
         if (username.isEmpty() || password.isEmpty()) {
             showAlert("Aviso", "Os campos não podem estar vazios", Alert.AlertType.WARNING);
-        } else {
-            if (username.equals("admin") && password.equals("admin")) {
+        } else if (username.equals("admin") && password.equals("admin")) {
                 showAlert("Sucesso", "Login efeutado com sucesso", Alert.AlertType.INFORMATION);
                 sceneInterface(username);
             }else {
                 showAlert("Erro", "Usuário ou senha incorretos", Alert.AlertType.ERROR);
             }
         }
-    }
+
 
     private void showAlert(String title, String message, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
@@ -81,32 +89,5 @@ public class LoginController {
             e.printStackTrace();
         }
     }
-
-    private String realizaLoginNaAPI(String username, String password) {
-        try {
-            HttpClient client = HttpClient.newHttpClient();
-
-            String json = String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password);
-
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("http://localhost:8080/login/")) // Altere se sua API estiver em outra porta ou domínio
-                    .header("Content-Type", "application/json")
-                    .POST(BodyPublishers.ofString(json))
-                    .build();
-
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-            if (response.statusCode() == 200) {
-                return response.body(); // Token JWT
-            } else {
-                return null;
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
 
 }

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/20.0.2" fx:controller="controller.PreviewBagController" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
@@ -43,7 +43,7 @@
                            <children>
                               <HBox alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="0.0" spacing="30.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Button mnemonicParsing="false" text="Registrar" HBox.hgrow="ALWAYS" />
+                                    <Button mnemonicParsing="false" text="Registrar" HBox.hgrow="ALWAYS" onAction="#abrirCadastro"/>
                                     <TextField maxWidth="1.7976931348623157E308" />
                                  </children>
                               </HBox>

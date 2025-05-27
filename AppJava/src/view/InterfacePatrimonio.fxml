@@ -45,7 +45,7 @@
          <children>
             <Button fx:id="btnHome" onAction="#loadHome" text="Home" />
             <Button fx:id="btnTela1" onAction="#loadTela1" text="Tela 1" />
-            <Button fx:id="btnTela2" onAction="#loadTela2" text="Tela 2" />
+            <Button fx:id="btnTela2" onAction="#previewInventario" text="Tela 2" />
          </children>
          <padding>
             <Insets left="15.0" top="20.0" />
