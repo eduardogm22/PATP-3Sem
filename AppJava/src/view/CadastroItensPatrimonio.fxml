@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CadastroPatrimonioController">
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
@@ -80,9 +80,9 @@
                         <VBox>
                            <children>
                               <Label text="Categoria:" />
-                              <ComboBox prefWidth="150.0" />
+                              <ComboBox fx:id="cmbCategoria" prefWidth="150.0" />
                               <Label text="Setor responsável:" />
-                              <ComboBox prefWidth="150.0" />
+                              <ComboBox fx:id="cmbSetor" prefWidth="150.0" />
                            </children>
                         </VBox>
                         <VBox>
@@ -111,15 +111,15 @@
                      <children>
                         <HBox spacing="45.0">
                            <children>
-                              <TableView>
-                                <columns>
-                                  <TableColumn prefWidth="75.0" text="C1" />
-                                  <TableColumn prefWidth="75.0" text="C2" />
-                                </columns>
+                              <TableView fx:id="tabelaItens">
+                                 <columns>
+                                    <TableColumn fx:id="colNome" text="Nome do Produto" prefWidth="120.0"/>
+                                    <TableColumn fx:id="colSituacao" text="Situação" prefWidth="120.0"/>
+                                 </columns>
                               </TableView>
                               <VBox prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Button mnemonicParsing="false" text="X" />
+                                    <Button text="X" onAction="#removerSelecionado"/>
                                  </children>
                               </VBox>
                            </children>

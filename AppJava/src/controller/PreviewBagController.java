@@ -13,10 +13,8 @@ import javafx.scene.layout.Region;
 import controller.InterfaceController;
 import java.io.IOException;
 
-
 public class PreviewBagController {
     private InterfaceController mainController;
-
     public void setMainController(InterfaceController controller) {
         this.mainController = controller;
     }
@@ -28,5 +26,3 @@ public class PreviewBagController {
         mainController.getRootPane().setCenter(tela);
     }
 }
-
-

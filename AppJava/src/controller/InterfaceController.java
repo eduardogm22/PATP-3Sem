@@ -8,65 +8,48 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import java.io.IOException;
-
-
 public class InterfaceController {
-
     @FXML
     private Label testeLabel;
-
     // Ainda não usado
     @FXML
     private VBox sidebar;
-
-
     private Stage stage;
-
     // armazenamento do conteúdo inicial do borderpane para restaurar a posição da home
     private Region initialCenterContent;
-
     @FXML
     private Button btnMinimize;
-
     @FXML
     private Button btnClose;
-
     @FXML
     private BorderPane rootPane;
-
     // Ainda não usado
    // @FXML
    // private Button btnTela1;
-
     // Ainda não usado
     //@FXML
    // private Button btnTela2;
-
     // Método para inicializar a interface com o nome de usuário
     public void initializeInterface(String username) {
         testeLabel.setText("Olá, " + username);
         initialCenterContent = (Region) rootPane.getCenter();
     }
-
     // Método para fechar a janela
     @FXML
     private void handleClose() {
         Stage stage = (Stage) btnClose.getScene().getWindow();
         stage.close();
     }
-
     // Método para minimizar a janela
     @FXML
     private void handleMinimize() {
         Stage stage = (Stage) btnMinimize.getScene().getWindow();
         stage.setIconified(true);
     }
-
     @FXML
     private void loadHome() throws IOException {
         rootPane.setCenter(initialCenterContent);
     }
-
     @FXML
     private void loadTela1() {
         try {
@@ -88,7 +71,6 @@ public class InterfaceController {
         rootPane.setCenter(cadItemTela);
     }
 
-
     public BorderPane getRootPane() {
         return rootPane;
     }
@@ -97,9 +79,9 @@ public class InterfaceController {
     private void previewInventario() throws IOException {
         // Carregar o FXML de Tela 2
         FXMLLoader prevInventario = new FXMLLoader(getClass().getResource("/view/PreviaInventarioPatrimonio.fxml"));
-        Region PrevInventario = prevInventario.load();
-        PreviewBagController previaController = prevInventario.getController();
-        previaController.setMainController(this);
-        rootPane.setCenter(PrevInventario);  // Substitui o conteúdo central
+        Region PreviaInventario = prevInventario.load();
+        PreviewBagController previewController = prevInventario.getController();
+        previewController.setMainController(this);
+        rootPane.setCenter(PreviaInventario);  // Substitui o conteúdo central
     }
 }
