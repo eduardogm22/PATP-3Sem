@@ -4,10 +4,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import java.io.IOException;
+import javafx.scene.*;
 public class InterfaceController {
     @FXML
     private Label testeLabel;
@@ -83,5 +85,15 @@ public class InterfaceController {
         PreviewBagController previewController = prevInventario.getController();
         previewController.setMainController(this);
         rootPane.setCenter(PreviaInventario);  // Substitui o conteúdo central
+    }
+    @FXML
+    private void abrirTelaLogs() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LogsView.fxml"));
+            StackPane logsView = loader.load();
+            rootPane.setCenter(logsView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

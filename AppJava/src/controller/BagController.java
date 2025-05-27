@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Region;
 import javafx.scene.control.Button;
 import java.io.IOException;
+
 public class BagController {
     private InterfaceController mainController;
     public void setMainController(InterfaceController controller) {

@@ -20,12 +20,12 @@ public class CadastroPatrimonioController {
     @FXML
     private TableView<ItemPatrimonio> tabelaItens;
 
-    @FXML private TextField txtNomeProduto;
-    @FXML private TextField txtSituacao;
+    @FXML private TextField nomeProduto;
+    @FXML private TextField situacaoProduto;
     @FXML private ComboBox<String> cmbCategoria;
     @FXML private ComboBox<String> cmbSetor;
-    @FXML private TextField txtValorUnitario;
-    @FXML private TextField txtQuantidade;
+    @FXML private TextField valorUnitario;
+    @FXML private TextField quantidadeProduto;
 
 
     private ObservableList<ItemPatrimonio> listaItens = FXCollections.observableArrayList();
@@ -45,12 +45,12 @@ public class CadastroPatrimonioController {
 
     @FXML
     private void adicionarItem() {
-        String nome = txtNomeProduto.getText();
-        String situacao = txtSituacao.getText();
+        String nome = nomeProduto.getText();
+        String situacao = situacaoProduto.getText();
         String categoria = cmbCategoria.getValue();
         String setor = cmbSetor.getValue();
-        double valor = Double.parseDouble(txtValorUnitario.getText());
-        int qtd = Integer.parseInt(txtQuantidade.getText());
+        double valor = Double.parseDouble(valorUnitario.getText());
+        int qtd = Integer.parseInt(quantidadeProduto.getText());
 
         ItemPatrimonio item = new ItemPatrimonio(nome, situacao, categoria, setor, valor, qtd);
         listaItens.add(item);
@@ -74,10 +74,10 @@ public class CadastroPatrimonioController {
     }
 
     private void limparCampos() {
-        txtNomeProduto.clear();
-        txtSituacao.clear();
-        txtValorUnitario.clear();
-        txtQuantidade.clear();
+        nomeProduto.clear();
+        situacaoProduto.clear();
+        valorUnitario.clear();
+        quantidadeProduto.clear();
         cmbCategoria.getSelectionModel().clearSelection();
         cmbSetor.getSelectionModel().clearSelection();
     }
