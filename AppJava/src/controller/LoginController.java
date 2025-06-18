@@ -1,4 +1,6 @@
 package controller;
+import model.LoginDTO;
+import dao.LoginDAO;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -20,12 +22,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
+
 
 public class LoginController {
 
@@ -42,13 +39,18 @@ public class LoginController {
 
         if (username.isEmpty() || password.isEmpty()) {
             showAlert("Aviso", "Os campos não podem estar vazios", Alert.AlertType.WARNING);
-        } else if (username.equals("admin") && password.equals("admin")) {
-                showAlert("Sucesso", "Login efeutado com sucesso", Alert.AlertType.INFORMATION);
+        } else {
+            LoginDTO loginDTO = new LoginDTO(username, password);
+            LoginDAO dao = new LoginDAO();
+
+            if (dao.autenticar(loginDTO)) {
+                showAlert("Sucesso", "Login efetuado com sucesso", Alert.AlertType.INFORMATION);
                 sceneInterface(username);
-            }else {
+            } else {
                 showAlert("Erro", "Usuário ou senha incorretos", Alert.AlertType.ERROR);
             }
         }
+    }
 
 
     private void showAlert(String title, String message, Alert.AlertType alertType) {

@@ -19,21 +19,51 @@ public class ItemPatrimonio {
     }
 
     // Getters e Setters (obrigatórios para TableView)
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
+    public String getNome() {
+        return nome;
+    }
 
-    public String getSituacao() { return situacao; }
-    public void setSituacao(String situacao) { this.situacao = situacao; }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-    public String getCategoria() { return categoria; }
-    public void setCategoria(String categoria) { this.categoria = categoria; }
+    public String getSituacao() {
+        return situacao;
+    }
 
-    public String getSetor() { return setor; }
-    public void setSetor(String setor) { this.setor = setor; }
+    public void setSituacao(String situacao) {
+        this.situacao = situacao;
+    }
 
-    public double getValorUnitario() { return valorUnitario; }
-    public void setValorUnitario(double valorUnitario) { this.valorUnitario = valorUnitario; }
+    public String getCategoria() {
+        return categoria;
+    }
 
-    public int getQuantidade() { return quantidade; }
-    public void setQuantidade(int quantidade) { this.quantidade = quantidade; }
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getSetor() {
+        return setor;
+    }
+
+    public void setSetor(String setor) {
+        this.setor = setor;
+    }
+
+    public double getValorUnitario() {
+        return valorUnitario;
+    }
+
+    public void setValorUnitario(double valorUnitario) {
+        this.valorUnitario = valorUnitario;
+    }
+
+    public int getQuantidade() {
+        return this.quantidade;
+    }
+
+    public double getValorTotal() {
+        return this.valorUnitario * this.quantidade;
+    }
 }
