@@ -34,6 +34,12 @@ public class LoginController {
         } else {
             LoginDTO loginDTO = new LoginDTO(username, password);
             LoginDAO dao = new LoginDAO();
+        if (dao.autenticar(loginDTO)) {
+            showAlert("Sucesso", "Login efetuado com sucesso", Alert.AlertType.INFORMATION);
+            sceneInterface(username);
+        } else {
+            showAlert("Erro", "Usuário ou senha incorretos", Alert.AlertType.ERROR);
+        }
         }
     }
 
