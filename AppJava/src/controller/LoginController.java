@@ -1,15 +1,9 @@
 package controller;
+import http.HTTPRequest;
+import http.HTTPResponse;
 import model.LoginDTO;
 import dao.LoginDAO;
 
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URL;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.net.http.HttpRequest.BodyPublishers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -33,7 +27,7 @@ public class LoginController {
     private PasswordField password;
 
     @FXML
-    private void handleLogin() {
+    private void handleLogin() throws IOException {
         String username = this.username.getText();
         String password = this.password.getText();
 
@@ -43,12 +37,23 @@ public class LoginController {
             LoginDTO loginDTO = new LoginDTO(username, password);
             LoginDAO dao = new LoginDAO();
 
-            if (dao.autenticar(loginDTO)) {
+            HTTPRequest http = new HTTPRequest("http://localhost:8080/login/");
+            http.setMethod("POST");
+            http.setPayload(loginDTO.toString());
+            HTTPResponse response = http.send();
+            if (response.getStatusCode() == 200) {
                 showAlert("Sucesso", "Login efetuado com sucesso", Alert.AlertType.INFORMATION);
                 sceneInterface(username);
             } else {
                 showAlert("Erro", "Usuário ou senha incorretos", Alert.AlertType.ERROR);
             }
+
+//            if (dao.autenticar(loginDTO)) {
+//                showAlert("Sucesso", "Login efetuado com sucesso", Alert.AlertType.INFORMATION);
+//                sceneInterface(username);
+//            } else {
+//                showAlert("Erro", "Usuário ou senha incorretos", Alert.AlertType.ERROR);
+//            }
         }
     }
 

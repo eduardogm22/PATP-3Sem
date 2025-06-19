@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @PostMapping("/login/")
-    public ResponseEntity<String> postLogin(@RequestParam AutenticacaoDTO objAuth) {
+    public ResponseEntity<String> postLogin(@RequestBody AutenticacaoDTO objAuth) {
         if (services.postLoginService(objAuth)) {
             return ResponseEntity.ok("Usuário autenticado!");
         } else {
@@ -55,34 +55,24 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public List<UsuarioPublicoDTO> getAllUsers(@RequestParam(required = false) Integer ativo) {
+    public List<Usuario> getAllUsers(@RequestParam(required = false) Integer ativo) {
         return services.getAllUsersService(ativo);
     }
     
     @GetMapping("/users/{idUsuario}")
-    public UsuarioPublicoDTO getUserById(@PathVariable String idUsuario) {
-        Usuario usuarioNoBd = userRepository.findByIdUsuario(idUsuario);
-        return new UsuarioPublicoDTO(
-            usuarioNoBd.getIdUsuario(),
-            usuarioNoBd.getUsername(),
-            usuarioNoBd.getNomeCompleto(),
-            usuarioNoBd.getEmail(),
-            cargoRepository.findNomeById(usuarioNoBd.getIdCargo()),
-            usuarioNoBd.getDataCriacao(),
-            Utils.formataAtivo(usuarioNoBd.getAtivo())
-
-        );
+    public Usuario getUserById(@PathVariable Long idUsuario) {
+        return userRepository.findByIdUsuario(idUsuario);
     }
     
     @PutMapping("/users/{idUsuario}")
     public Usuario putUser(
-        @PathVariable String idUsuario, 
+        @PathVariable Long idUsuario, 
         @RequestBody UsuarioAlteraveisDTO objUsuarioDTO) {
         return services.putUserService(objUsuarioDTO, idUsuario);
     }
 
     @DeleteMapping("/users/{idUsuario}")
-    public ResponseEntity<String> deleteUser(@PathVariable String idUsuario) {
+    public ResponseEntity<String> deleteUser(@PathVariable Long idUsuario) {
         userRepository.deleteById(idUsuario);
         return ResponseEntity
                .status(HttpStatus.OK)

@@ -19,7 +19,7 @@ public class UsuarioAudit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAlteracao;
 
-    private String idResponsavelAlteracao;
+    private Long idResponsavelAlteracao;
     private String tipoAlteracao;
     private LocalDateTime dataAlteracao = LocalDateTime.now();
     private String dadosNovos;

@@ -46,7 +46,7 @@ public class UsuarioAuditingListener {
         audit.setTipoAlteracao(tipo);
 
         if (tipo.equals("insert")) {
-            audit.setDadosNovos(usuarioNovo.getIdUsuario());
+            audit.setDadosNovos(usuarioNovo.getIdUsuario().toString());
         } else if (tipo.equals("delete")) {
             audit.setDadosAntigos(
                 "idUsuario: " + usuarioAntigo.getIdUsuario() +

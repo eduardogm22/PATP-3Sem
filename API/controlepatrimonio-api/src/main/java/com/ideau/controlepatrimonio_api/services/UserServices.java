@@ -33,6 +33,7 @@ public class UserServices {
     
     public Boolean postLoginService(AutenticacaoDTO objAuth) {
         Usuario userNoBd = userRepository.findByUsername(objAuth.login());
+        if (userNoBd == null) return false;
         if ((userNoBd.getUsername() == objAuth.login()) && 
             (userNoBd.getSenha() == objAuth.senha())) {
           return true;
@@ -60,31 +61,18 @@ public class UserServices {
         }
     }
 
-    public List<UsuarioPublicoDTO> getAllUsersService(Integer ativo) {
-        List<Usuario> usuarios;
+    public List<Usuario> getAllUsersService(Integer ativo) {
         if (ativo == null) ativo = 2;
         if (ativo == 2) {
             logger.info("Buscando todos os usuários...");
-            usuarios = userRepository.findAll();
+            return userRepository.findAll();
         } else {
             logger.info("Buscando usuários, filtrando por ativos e inativos...");
-            usuarios = userRepository.findAllByAtivo(ativo);
+            return userRepository.findAllByAtivo(ativo);
         }
-        logger.info("usuarios.stream");
-        return usuarios.stream()
-        .map(usuario -> new UsuarioPublicoDTO(
-            usuario.getIdUsuario(),
-            usuario.getUsername(),
-            usuario.getNomeCompleto(),
-            usuario.getEmail(),
-            cargoRepository.findNomeById(usuario.getIdCargo()),
-            usuario.getDataCriacao(),
-            Utils.formataAtivo(usuario.getAtivo())
-        ))
-        .toList();
     }
 
-    public Usuario putUserService(UsuarioAlteraveisDTO objUsuarioDTO, String idUsuario) {
+    public Usuario putUserService(UsuarioAlteraveisDTO objUsuarioDTO, Long idUsuario) {
         try {
             Usuario usuarioNoBd = userRepository.findByIdUsuario(idUsuario);
             if (usuarioNoBd == null) {
