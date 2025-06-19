@@ -1,6 +1,4 @@
 package controller;
-import http.HTTPRequest;
-import http.HTTPResponse;
 import model.LoginDTO;
 import dao.LoginDAO;
 
@@ -27,7 +25,7 @@ public class LoginController {
     private PasswordField password;
 
     @FXML
-    private void handleLogin() throws IOException {
+    private void handleLogin() {
         String username = this.username.getText();
         String password = this.password.getText();
 
@@ -36,24 +34,6 @@ public class LoginController {
         } else {
             LoginDTO loginDTO = new LoginDTO(username, password);
             LoginDAO dao = new LoginDAO();
-
-            HTTPRequest http = new HTTPRequest("http://localhost:8080/login/");
-            http.setMethod("POST");
-            http.setPayload(loginDTO.toString());
-            HTTPResponse response = http.send();
-            if (response.getStatusCode() == 200) {
-                showAlert("Sucesso", "Login efetuado com sucesso", Alert.AlertType.INFORMATION);
-                sceneInterface(username);
-            } else {
-                showAlert("Erro", "Usuário ou senha incorretos", Alert.AlertType.ERROR);
-            }
-
-//            if (dao.autenticar(loginDTO)) {
-//                showAlert("Sucesso", "Login efetuado com sucesso", Alert.AlertType.INFORMATION);
-//                sceneInterface(username);
-//            } else {
-//                showAlert("Erro", "Usuário ou senha incorretos", Alert.AlertType.ERROR);
-//            }
         }
     }
 
