@@ -9,20 +9,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = "idUsuario")
 @Getter
 @Setter
 @Entity(name = "Usuarios")
 @Table(name  = "Usuarios")
 public class Usuario {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String idUsuario;
     private String username;
     private String senha;

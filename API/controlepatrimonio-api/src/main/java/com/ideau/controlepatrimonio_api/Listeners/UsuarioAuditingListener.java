@@ -1,7 +1,6 @@
 package com.ideau.controlepatrimonio_api.Listeners;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import com.ideau.controlepatrimonio_api.model.Auditoria.UsuarioAudit;
@@ -40,10 +39,10 @@ public class UsuarioAuditingListener {
     }
 
     private void salvaAuditoria(Usuario usuarioNovo, String tipo, Usuario usuarioAntigo) {
-        String idResponsavel = SecurityContextHolder.getContext().getAuthentication().getName();
+        
 
         UsuarioAudit audit = new UsuarioAudit();
-        audit.setIdResponsavelAlteracao(idResponsavel);
+        
         audit.setTipoAlteracao(tipo);
 
         if (tipo.equals("insert")) {

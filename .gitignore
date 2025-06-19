@@ -18,3 +18,7 @@ AppJava/.idea/workspace.xml
 AppJava/.idea/libraries/javafx_sdk_21_0.xml
 AppJava/target/classes/dao/LoginDAO.class
 API/controlepatrimonio-api/src/main/resources/application.properties
+API/controlepatrimonio-api/src/main/resources/application.properties
+API/controlepatrimonio-api/src/main/resources/application.properties
+AppJava/.idea/misc.xml
+*.class

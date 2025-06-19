@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
-import org.flywaydb.core.Flyway;
 
 public class Utils {
     private Utils() {
@@ -31,12 +30,6 @@ public class Utils {
         return false;
     }
 
-    public static void repararFlyway() {
-        Flyway.configure()
-            .dataSource("jdbc:mysql://localhost:3306/db_assets_control", "root", "1404")
-            .load()
-            .repair();
-    }
     public static String formataAtivo(int intAtivo) {
         if (intAtivo == 1)
             return "Ativo"; 

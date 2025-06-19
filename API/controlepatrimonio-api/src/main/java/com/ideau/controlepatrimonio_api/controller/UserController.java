@@ -3,6 +3,7 @@ package com.ideau.controlepatrimonio_api.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ideau.controlepatrimonio_api.model.Usuario.Usuario;
+import com.ideau.controlepatrimonio_api.model.Usuario.dto.AutenticacaoDTO;
 import com.ideau.controlepatrimonio_api.model.Usuario.dto.UsuarioAlteraveisDTO;
 import com.ideau.controlepatrimonio_api.model.Usuario.dto.UsuarioPublicoDTO;
 import com.ideau.controlepatrimonio_api.repositories.CargoRepository;
@@ -39,8 +40,17 @@ public class UserController {
         this.cargoRepository = cargoRepository;
     }
 
+    @PostMapping("/login/")
+    public ResponseEntity<String> postLogin(@RequestParam AutenticacaoDTO objAuth) {
+        if (services.postLoginService(objAuth)) {
+            return ResponseEntity.ok("Usuário autenticado!");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Erro na autenticação");
+        }
+    }
+    
     @PostMapping("/users/")
-    public UsuarioPublicoDTO postUser(@RequestBody Usuario objUsuario) {
+    public Usuario postUser(@RequestBody Usuario objUsuario) {
         return services.postUserService(objUsuario);
     }
 
@@ -65,7 +75,7 @@ public class UserController {
     }
     
     @PutMapping("/users/{idUsuario}")
-    public UsuarioPublicoDTO putUser(
+    public Usuario putUser(
         @PathVariable String idUsuario, 
         @RequestBody UsuarioAlteraveisDTO objUsuarioDTO) {
         return services.putUserService(objUsuarioDTO, idUsuario);
