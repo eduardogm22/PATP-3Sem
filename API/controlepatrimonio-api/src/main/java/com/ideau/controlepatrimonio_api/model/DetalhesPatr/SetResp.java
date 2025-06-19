@@ -17,5 +17,5 @@ public class SetResp {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String idSetResp;
     private String nome;
-    private String ativo;  
+    private Integer ativo;  
 }

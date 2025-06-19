@@ -18,5 +18,5 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String idCategoria;
     private String nome;
-    private String ativo;  
+    private Integer ativo;  
 }

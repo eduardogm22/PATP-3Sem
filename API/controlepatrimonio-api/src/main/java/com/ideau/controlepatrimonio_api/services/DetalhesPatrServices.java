@@ -2,13 +2,15 @@ package com.ideau.controlepatrimonio_api.services;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.ideau.controlepatrimonio_api.model.DetalhesPatr.Categoria;
 import com.ideau.controlepatrimonio_api.model.DetalhesPatr.Fornecedor;
 import com.ideau.controlepatrimonio_api.model.DetalhesPatr.SetResp;
 import com.ideau.controlepatrimonio_api.repositories.CategRepository;
 import com.ideau.controlepatrimonio_api.repositories.FornecRepository;
 import com.ideau.controlepatrimonio_api.repositories.SetRespRepository;
-
+@Service
 public class DetalhesPatrServices {
     private final CategRepository categRepository;
     private final FornecRepository fornecRepository;

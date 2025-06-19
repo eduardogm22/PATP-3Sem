@@ -18,5 +18,5 @@ public class Fornecedor {
     private String idFornecedor;
     private String nome;
     private String CNPJ;
-    private String ativo;  
+    private Integer ativo;  
 }

@@ -4,3 +4,17 @@ API/.env
 .vscode/settings.json
 API/APISpringBoot.code-workspace
 API/.vscode/settings.json
+AppJava/.idea/misc.xml
+/AppJava/.idea
+AppJava/.idea/libraries/javafx_sdk_21_0.xml
+AppJava/target/classes/service/AuthService.class
+AppJava/target/classes/dao/LoginDAO.class
+AppJava/.idea/workspace.xml
+AppJava/.idea/misc.xml
+AppJava/.idea/libraries/javafx_sdk_21_0.xml
+*.class
+AppJava/target/classes/dao/LoginDAO.class
+AppJava/.idea/workspace.xml
+AppJava/.idea/libraries/javafx_sdk_21_0.xml
+AppJava/target/classes/dao/LoginDAO.class
+API/controlepatrimonio-api/src/main/resources/application.properties
