@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body{
 
       margin: 0;
@@ -11,21 +15,37 @@ a{
        text-shadow: none;
 }
 
-header{
-    width: 1140px;
-    max-width: 80%;
-    margin: auto;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    position: relative;
-    z-index: 100;
+header {
+  position: fixed;
+  top: 20px;
+  left: 30px; /* alterado de right para left */
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 10px 20px;
+  border-radius: 10px;
+  z-index: 9999;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-header a{
-    margin-right: 40px;
-   text-shadow: none;
+
+header nav {
+  display: flex;
+  gap: 20px;
 }
+
+header a {
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 15px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+header a:hover {
+  color: #ffcc00;
+  text-decoration: underline;
+}
+
 
 .caroussel{
     width: 100vw;
@@ -427,8 +447,8 @@ footer
 }
 
 .diferenciais .card:hover {
-    background-color: rgba(96, 128, 117, 0.386);
-    box-shadow: 0px 10px 67px 8px #5fb385;
+    background-color: rgba(122, 124, 123, 0.386);
+    box-shadow: 0px 10px 67px 8px #98a59e;
 }
 
 
@@ -448,39 +468,46 @@ footer
 
 
 /*resultados*/
-.resultados{
-    background-color: #057A3A;
-}
-.resultados .container{
-   display: flex; 
-   align-items: center;
-   justify-content: space-between;
-}
-.resultados .resultados-text{
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    color: aliceblue;
-    font-size: 1.6rem;
-    font-weight: 600;
-    width: 50%;
-}
-.resultados .resultados-dois{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: aliceblue;
-    margin-top: 30px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+.faixa{ 
+  background-color: #057A3A;
+  color: white;
+  overflow: hidden;
+  position: relative;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  font-family: system-ui, sans-serif;
 }
 
-.resultados .resultados-dois p{
-    text-align: center;
-    margin: 0 30px;
-    font-size: 20px;
+.texto-animado {
+  display: flex;
+  white-space: nowrap;
+  animation: rolarContinuamente 20s linear infinite;
 }
 
-.resultados .resultados-dois p span{
-    font-size: 25px;
-    font-weight: 500;
+.texto-animado span {
+  padding-right: 100px; /* espaçamento entre os textos */
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+@keyframes rolarContinuamente {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+
+@keyframes rolarTexto {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 /* section caso*/
@@ -784,7 +811,7 @@ footer
     .ajuda {
       padding: 2rem 0;
       background-color: #f5f5f5;
-      color: #333;
+      color: #6c6c6c;
     }
     .ajuda .container {
       max-width: 960px;
@@ -837,10 +864,10 @@ footer
     .section p {
       font-size: 1rem;
       margin: 0.5rem 0;
-      color: #444;
+      color: #6c6c6c;
     }
     .section strong {
-      color: #000;
+      color: #545353;
     }
     footer {
       background: #057A3A;
@@ -850,6 +877,46 @@ footer
       margin-top: 3rem;
     } 
 
+ 
+
+.faixa-ajuda {
+  background: linear-gradient(90deg, #057A3A, #0a9b57, #057A3A);
+  background-size: 200% auto;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 1.8rem;
+  font-weight: 800;
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+  margin: 0 auto;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  animation: fundoDeslizante 4s linear infinite, brilhoForte 1.8s ease-in-out infinite, zoomLeve 5s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(0, 255, 127, 0.3);
+  border-top: 4px solid #0b5;
+  border-bottom: 4px solid #0b5;
+}
+ 
+@keyframes fundoDeslizante {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+ 
+ 
+ 
+@keyframes zoomLeve {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
 
 
 

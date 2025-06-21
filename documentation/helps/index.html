@@ -17,15 +17,15 @@
     <!--inicio do background_verde-->
     <!--header-->
     <header>
-        <nav>
-            <a href="">Home</a>
-            <a href="">Contatos</a>
-            <a href="">Info</a> 
-        </nav>
+<nav>
+  <a href="#home">Home</a>
+  <a href="#ajuda">Central de Ajuda</a>
+  <a href="#contatos">Contatos</a>
+</nav>
     </header>
 
     <!--Carrossel-->
-    <div class="caroussel">
+    <div id="home"  class="caroussel">
         <div class="list">
             <div class="item">
                 <img src="sçlode.png">
@@ -152,29 +152,17 @@
     </div>
     <!--final do background_verde-->
     <!--inicio resultados-->
-    <section id="resultados" class="resultados">
-        <div class="container">
-            <div class="resultados-text">
-                algo aqui2 algo aqui algo aui tem algo aqui
-            </div>
-            <div class="resultados-dois">
-                <p>
-                    <span> algo aqui</span><br>
-                    algo
-                </p>
-
-                <p>
-                    <span> algo aqui</span><br>
-                    algo
-                </p>
-
-                <p>
-                    <span> algo aqui</span><br>
-                    algo
-                </p>
-            </div>
-        </div>
-    </section>
+<div class="faixa">
+  <div class="texto-animado">
+    <span>
+      Projeto de Aperfeiçoamento Teórico e Prático - Nível III 2025/1 – DESENVOLVIMENTO DE UM SISTEMA DE CONTROLE DE PATRIMÔNIO UTILIZANDO A LINGUAGEM DE PROGRAMAÇÃO JAVA •
+    </span>
+    <span>
+      Projeto de Aperfeiçoamento Teórico e Prático - Nível III 2025/1 – DESENVOLVIMENTO DE UM SISTEMA DE CONTROLE DE PATRIMÔNIO UTILIZANDO A LINGUAGEM DE PROGRAMAÇÃO JAVA •
+    </span>
+  </div>
+</div>
+ 
     <!--final de resutados-->
     <!--inicial de section, container, diferenciais(parte do conteudo abaixo da faixa verde)-->
     
@@ -185,20 +173,32 @@
             <div class="card">
                 <h3 class="titulo">Sobre JavaFX/Scene Builder</h3><br>
                 <p>JavaFX com Scene Builder é uma combinação usada para criar interfaces gráficas modernas em Java.
-O JavaFX fornece os recursos gráficos e de interação, enquanto o Scene Builder permite montar visualmente essas telas por meio de arrastar e soltar, gerando automaticamente os arquivos .fxml que definem a estrutura da interface. Essa abordagem facilita o desenvolvimento de aplicações com separação clara entre código e design, tornando o processo mais produtivo e organizado.
+O JavaFX fornece os recursos gráficos e de interação, enquanto o Scene Builder permite montar visualmente essas telas 
+por meio de arrastar e soltar, gerando automaticamente os arquivos .fxml que definem a estrutura da interface. Essa abordagem
+ facilita o desenvolvimento de aplicações com separação clara entre código e design, tornando o processo mais produtivo e
+  organizado.</p>
 <img src="jxsnece.png" alt="1º exemplo de imagem">
             </div>
             <div class="card">
                 <h3 class="titulo">Sobre a API Python Java</h3><br>
-                <p>O sistema foi desenvolvido com uma arquitetura bem definida, separando a lógica da apresentação. A API foi construída em Python, responsável por processar as requisições e executar as funções principais do sistema. Já a interface foi desenvolvida em Java, proporcionando uma estrutura visual robusta e organizada. Essa integração entre Python e Java oferece maior flexibilidade, facilita a manutenção e garante um funcionamento mais eficiente do sistema. 
+                <p>O sistema foi desenvolvido com uma arquitetura bem definida, separando a lógica da apresentação. A API foi
+                     construída em Python, responsável por processar as requisições e executar as funções principais do sistema. 
+                     Já a interface foi desenvolvida em Java, proporcionando uma estrutura visual robusta e organizada. Essa 
+                     integração entre Python e Java oferece maior flexibilidade, facilita a manutenção e garante um funcionamento 
+                     mais eficiente do sistema. </p><br>
                     <img src="pythojv.png" alt="1º exemplo de imagem">
             </div>
             <div class="card">
-                <h3 class="titulo">Algo aqui</h3><br>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-                    It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                <img src="imagem exemplo.png" alt="1º exemplo de imagem">
+                <h3 class="titulo">Sobre MySQL — Banco de Dadosc </h3><br>
+                <p>MySQL é um sistema de gerenciamento de banco de dados relacional (SGBD) amplamente utilizado para armazenar, 
+                    organizar e acessar dados de forma eficiente. Baseado na linguagem SQL (Structured Query Language), ele permite
+                     criar tabelas, relacionamentos e executar consultas de forma rápida e estruturada. É uma tecnologia robusta,
+                      confiável e gratuita, sendo usada em diversos sistemas, desde aplicações simples até plataformas web complexas.
+                </p><br> <br>
+    
+                    <img src="loomysql.png" alt="1º exemplo de imagem">
             </div>
+ 
         </div>
     </section>
     <!--final de section, container, diferenciais-->
@@ -306,10 +306,11 @@ O JavaFX fornece os recursos gráficos e de interação, enquanto o Scene Builde
 <!-- parte cenbtral de ajudas-->
 <section>
             
- <div>Central de Ajuda - Sistema de Patrimônio</div> 
+ <div id="ajuda" class="faixa-ajuda">Central de Ajuda - Sistema de Patrimônio</div>
+
  
 
-  <section id="ajuda" class="ajuda">
+  <section   class="ajuda">
     <div class="container">
       <div class="search-box">
         <input type="text" id="searchInput" placeholder="Digite sua dúvida ou palavra-chave...">
@@ -403,17 +404,17 @@ O JavaFX fornece os recursos gráficos e de interação, enquanto o Scene Builde
         </div>
       </div>
 
-      <div class="section">
-        <h2>📞 Suporte</h2>
-        <p><strong>Ainda com dúvidas? Fale com o suporte técnico:</strong></p>
- 
-      </div>
-    </div>
+  
   </section>
         
         <!--inicio do terceiro section-->
-        <section id= "informacoes"class="exemplo-1">
+        <section id= "contatos"class="exemplo-1">
             <div class="container">
+                
+    <div class="section bloco-suporte">
+      <h2 class="suporte-titulo">📞 Suporte</h2>
+      <p class="suporte-texto"><strong>Ainda com dúvidas? Fale com o suporte técnico:</strong></p>
+    </div>
                 
                 <div class="cards">
                     <!--card item 1 -->
