@@ -1,50 +1,46 @@
+let nextDom = document.getElementById('next');
+let prevDom = document.getElementById('prev');
+let carouselDom = document.querySelector('.caroussel');
+let listItemDom = document.querySelector('.caroussel .list');
+let thumbnailDom = document.querySelector('.caroussel .thumbnail');
 
-
-window.addEventListener("scroll", function(){
-    let header = document.querySelector('#header')
-    header.classList.toggle('rolagem', window.scrollY > 0)
-})
-
-
-
-class MenuBars {
-    constructor(menuBar, navList, navLinks) {
-        this.menuBar = document.querySelector(menuBar);
-        this.navList = document.querySelector(navList);
-        this.navLinks = document.querySelectorAll(navLinks);
-        this.activeClass = "active";
-
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    animateLinks() {
-        this.navLinks.forEach((link, index) => {
-            link.style.setProperty("--i", index); 
-        });
-    }
-
-    handleClick() {
-        this.navList.classList.toggle(this.activeClass);
-        this.menuBar.classList.toggle(this.activeClass);
-        this.animateLinks();
-    }
-
-    addClickEvent() {
-        this.menuBar.addEventListener("click", this.handleClick);
-    }
-
-    init() {
-        if (this.menuBar) {
-            this.addClickEvent();
-        }
-        return this;
-    }
+prevDom.onclick = function(){
+    showSlider('prev');
+}
+nextDom.onclick = function(){
+    showSlider('next');
 }
 
-const menuBars = new MenuBars(
-    ".menu-bar",
-    ".nav-list",
-    ".nav-list li"
-);
+let timeRunning = 3000;
+let timeAutoNext = 7000;
+let runTimeOut;
+let runAutoRun = setTimeout(()=>{
+        nextDom.click();
+    }, timeAutoNext);
 
-menuBars.init();
+function showSlider(type){
+    let itemSlider = document.querySelectorAll('.caroussel .list .item');
+    let itemThumbnail = document.querySelectorAll('.caroussel .thumbnail .item');
+
+    if(type === 'next'){
+        listItemDom.appendChild(itemSlider[0]);
+        thumbnailDom.appendChild(itemThumbnail[0]);
+        carouselDom.classList.add('next')
+    }
+    else{
+        let positionLastItem =itemSlider.length - 1;
+        listItemDom.prepend(itemSlider[positionLastItem]);
+        thumbnailDom.prepend(itemThumbnail[positionLastItem]);
+        carouselDom.classList.add('prev');
+    }
+    clearTimeout(runTimeOut);
+    runTimeOut = setTimeout(() =>{
+    carouselDom.classList.remove('next');
+    carouselDom.classList.remove('prev');
+    }, timeRunning);
+
+    clearTimeout(runAutoRun);
+        runAutoRun = setTimeout(()=>{
+            nextDom.click();
+        }, timeAutoNext)
+}
