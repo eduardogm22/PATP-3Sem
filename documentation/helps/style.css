@@ -539,14 +539,17 @@ footer
     margin-top: 50px;
 }
 
-.exemplo-1 .cards .card-item{
+.exemplo-1 .cards .card-item {
     width: 25%;
+    height: 300px;
     text-align: center;
-    padding:  20px;
+    padding: 20px;
     border-radius: 20px;
-    box-shadow: 0px 35px 97px -15px rgba(0, 0, 0, 0.5) ;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+
+
 
 .exemplo-1 .cards .img{
     padding: 0;
@@ -560,27 +563,86 @@ footer
     margin-bottom: 20px;
     color: #737373;
 }
-.exemplo-1 .cards button{
-    padding: 10px 20px;
-    color: rgb(243, 239, 238);
-	border-radius:20px;		
-	border: 4px solid #00BF63;
-	background-color:#00BF63;
+
+.profile-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 10px auto;
+  display: block;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+.nome_item2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  margin-bottom: 5px;
 }
 
-.exemplo-1 .cards button:hover{
-    background-color:rgb(255, 240, 238);
-    color:#00BF63
-}
-.exemplo-1 .cards button:active {
-    background-color: rgb(227, 227, 227); /* Muda a cor de fundo */
-    transform: scale(0.95); /* Dá um efeito de compressão suave */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Ajusta a sombra */
+.nome_item {
+  font-size: 14px;
+  color: #555;
+  text-align: center;
 }
 
+.card-item .numero a {
+  color: #057A3A; /* verde escuro */
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+ 
+
+.card-item .numero a:hover {
+  color:blue ;
+  text-decoration: underline;
+}
 
 
 
+.circle { 
+  pointer-events: auto;  
+  z-index: 10;
+
+  width: 60px;
+  height: 60px;
+  background-color: #28a745;  
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 25px rgba(40, 167, 69, 0.5);
+  transform: rotate(0deg);
+  text-decoration: none;
+  border: 2px solid #28a745;
+  margin: 10px auto 0 auto;
+}
+
+.circle:hover {
+  background-color: #6a0dad;
+  color: white;
+  border: 2px solid #6a0dad;
+  box-shadow: 0 4px 10px rgba(106, 13, 173, 0.3); /* <- corrigido aqui */
+}
+
+.circle:active { 
+  background-color: white;
+  color: #6a0dad; 
+  border: 2px solid #6a0dad;
+  box-shadow: 0 4px 10px rgba(106, 13, 173, 0.3);
+  transform: rotate(360deg) scale(1.1);
+}
+
+
+ 
+
+ 
  
 /* Responsivo */
 
@@ -787,3 +849,20 @@ footer
       padding: 1rem;
       margin-top: 3rem;
     } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
