@@ -10,7 +10,7 @@ prevDom.onclick = function(){
 nextDom.onclick = function(){
     showSlider('next');
 }
-
+let autoSlide = false; 
 let timeRunning = 3000;
 let timeAutoNext = 7000;
 let runTimeOut;
@@ -21,6 +21,8 @@ let runAutoRun = setTimeout(()=>{
 function showSlider(type){
     let itemSlider = document.querySelectorAll('.caroussel .list .item');
     let itemThumbnail = document.querySelectorAll('.caroussel .thumbnail .item');
+
+    
 
     if(type === 'next'){
         listItemDom.appendChild(itemSlider[0]);

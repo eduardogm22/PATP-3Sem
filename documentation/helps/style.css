@@ -1,10 +1,9 @@
 body{
-    font-family:"Poppins", sans-serif;
-    background-color: rgb(232, 222, 222);
-    color:aliceblue;
-    margin: 0;
-    font-size:12px;
-}
+
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+    }
 
 a{
     text-decoration: none;
@@ -95,6 +94,12 @@ header a{
     color: #eee;
     border: 1px solid #eee;
     
+}
+.caroussel .list .item {
+    z-index: 0;
+}
+.caroussel .list .item:nth-child(1) {
+    z-index: 1;
 }
 
 .thumbnail{
@@ -391,6 +396,16 @@ footer
     padding: 2.7rem 0;
 }
 /*section diferenciais*/
+.titulo-central {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 40px;
+  margin-top: 40px;
+  color: #333;
+}
+
+
 .diferenciais .container {
     display: flex;
     justify-content: space-between; /* Espaça os cards uniformemente */
@@ -405,23 +420,23 @@ footer
     max-width: 30%; /* Garante que não exceda 30% */
     cursor: pointer;
     border-radius: 15px;
-    padding: 30px;
-    background-color: rgba(225, 220, 219, 0.5); /* Corrigido ponto e vírgula */
+    padding: 20px;
+    background-color: rgba(184, 189, 184, 0.5); /* Corrigido ponto e vírgula */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adiciona uma leve sombra */
     transition: 0.3s; /* Suaviza a transição */
 }
 
 .diferenciais .card:hover {
-    background-color: #E1DCDB;
-    box-shadow: 0px 10px 67px 8px #A6A6A6;
+    background-color: rgba(96, 128, 117, 0.386);
+    box-shadow: 0px 10px 67px 8px #5fb385;
 }
 
 
 .diferenciais .card img {
     width: 100%; /* Faz a imagem ocupar toda a largura do card */
     height: auto; /* Mantém a proporção da imagem */
-    border-radius: 10px; /* Arredonda as bordas */
-    margin-bottom: 15px; /* Espaçamento abaixo da imagem */
+    border-radius: 30px; /* Arredonda as bordas */
+    margin-bottom: 20px; /* Espaçamento abaixo da imagem */
 }
 
 .diferenciais .card .titulo {
@@ -498,14 +513,21 @@ footer
     color:#737373 ;
 }
 
-.exemplo-1 .azul{
+.exemplo-1 .azul{ 
+    max-width: 1000;
  font-size:24px ;
  font-weight: 600;
  color:#057A3A;
  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
-.exemplo-1 p{
-    max-width: 500px;
+#informacoes h1 {
+  margin-top: 90px;
+}
+
+
+ 
+.exemplo-1 p{   
+    max-width: 800px;
     color: #057A3A;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
@@ -518,7 +540,7 @@ footer
 }
 
 .exemplo-1 .cards .card-item{
-    width: 30%;
+    width: 25%;
     text-align: center;
     padding:  20px;
     border-radius: 20px;
@@ -556,52 +578,15 @@ footer
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Ajusta a sombra */
 }
 
-/*footer*/
-footer{
-    background-color: #057A3A;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
 
 
-footer .container{
-    display: flex;
-    color:#FFF8F8
-}
 
-footer .container ul{
-    list-style-type: none;
-    width: 50%;
-}
-footer .container h3{
-    margin-bottom: 16px;
-    font-weight: 600;
-}
-footer .container .redes-sociais img{
-    margin-right: 5px;
-    max-width: 30px;
-    border-radius: 10px;
-}
-footer .container ul > p{
-    max-width: 100px;
-    margin-bottom: 40px;
-}
-footer .container li{
-    margin: 10px 0;
-}
-footer .container a {
-    color: #FFF8F8;
-}
+ 
 /* Responsivo */
 
 @media (max-width: 999px) {
     body {
         overflow-x: hidden;
-    }
-
-    nav {
-        flex-direction: row;
-        padding: 10px 20px;
-        background-color: #00BF63;
     }
 
     .nav-list {
@@ -706,3 +691,99 @@ footer .container a {
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+    .ajuda {
+      padding: 2rem 0;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    .ajuda .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .ajuda h1 {
+      text-align: center;
+      color: #057A3A;
+      margin-bottom: 2rem;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 2rem;
+    }
+    .section {
+      margin-bottom: 2rem;
+    }
+    .section h2 {
+      color: #057A3A;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .faq-item {
+      background: #fff;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .faq-item:hover {
+      background-color: #f0f0f0;
+    }
+    .faq-item h3 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+    .faq-item p {
+      display: none;
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+      color: #555;
+    }
+    .section p {
+      font-size: 1rem;
+      margin: 0.5rem 0;
+      color: #444;
+    }
+    .section strong {
+      color: #000;
+    }
+    footer {
+      background: #057A3A;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+    } 
