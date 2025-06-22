@@ -1217,6 +1217,55 @@ ul li:hover {
   color: #333;
 }
 
+.slideDIAG { 
+  background: #fbfced;
+  padding: 60px 80px;
+  max-width: 1000px;
+  max-height: 500px;
+  width: 100%;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+  border: 4px solid #01412b ;
+  position: relative;
+  animation: slideIn 0.8s ease-out;
+}
+
+.image-principal {
+  width: 300px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+}
+
+.image-principal:hover {
+  transform: scale(1.13) translateX(-250px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.conteudo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap; /* Caso precise adaptar em telas menores */
+}
+
+.texto {
+  flex: 1;
+  min-width: 300px;
+}
+
+.img-slide {
+  flex: 1;
+  min-width: 300px;
+  text-align: center;
+}
+
+.image-principal {
+  max-width: 100%;
+  height: auto;
+}
 
 
-
+ 
