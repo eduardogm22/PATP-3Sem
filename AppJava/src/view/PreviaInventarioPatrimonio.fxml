@@ -23,10 +23,21 @@
                                     <Button mnemonicParsing="false" onAction="#abrirCadastro" text="Registrar" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
-                              <TableView minHeight="0.0" minWidth="0.0" VBox.vgrow="ALWAYS">
+                              <TableView fx:id="tabelaPatrimonios" minHeight="0.0" minWidth="0.0" VBox.vgrow="ALWAYS">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="C1" />
-                                  <TableColumn prefWidth="75.0" text="C2" />
+                                  <TableColumn fx:id="colID" text="ID" />
+                                  <TableColumn fx:id="colNomePrd" text="Nome Prod." />
+                                  <TableColumn fx:id="colCategoria" text="Categoria" />
+                                  <TableColumn fx:id="colSetResp" text="Setor Resp." />
+                                  <TableColumn fx:id="colSituacao" text="Situação" />
+                                  <TableColumn fx:id="colValUn" text="Valor Un." />
+                                  <TableColumn fx:id="colQuantidade" text="Quantidade" />
+                                  <TableColumn fx:id="colRecebPor" text="Receb. por" />
+                                  <TableColumn fx:id="colDtReceb" text="Dt Recebimento" />
+                                  <TableColumn fx:id="colFornec" text="Fornecedor" />
+                                  <TableColumn fx:id="colDtAquisicao" text="Dt Aquisição" />
+                                  <TableColumn fx:id="colNumero" text="Número" />
+                                  <TableColumn fx:id="colSerie" text="Série" />
                                 </columns>
                               </TableView>
                            </children>
