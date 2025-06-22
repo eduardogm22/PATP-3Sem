@@ -23,9 +23,9 @@
                         <VBox>
                            <children>
                               <Label text="Chave de Acesso" />
-                              <TextField fx:id="ChaveAcesso" />
+                              <TextField fx:id="chaveAcesso" />
                               <Label text="Recebido por:" />
-                              <TextField fx:id="RecebPor" />
+                              <TextField fx:id="recebPor" />
                            </children>
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0">

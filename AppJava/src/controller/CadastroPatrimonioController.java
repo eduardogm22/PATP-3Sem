@@ -6,6 +6,7 @@ import javafx.scene.control.TextFormatter;
 import javafx.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
@@ -32,8 +33,8 @@ import dao.*;
 
 public class CadastroPatrimonioController {
 
-    @FXML private TextField ChaveAcesso;
-    @FXML private TextField RecebPor;
+    @FXML private TextField chaveAcesso;
+    @FXML private TextField recebPor;
     @FXML private TextField numeroNF;
     @FXML private TextField numeroSerie;
     @FXML private DatePicker dataAquisicao;
@@ -65,6 +66,7 @@ public class CadastroPatrimonioController {
         cmbCategoria.setItems(FXCollections.observableArrayList("Informática", "Mobiliário", "Ferramentas"));
         cmbSetor.setItems(FXCollections.observableArrayList("TI", "Manutenção", "Financeiro"));
         situacaoProduto.setItems(FXCollections.observableArrayList("Bom", "Regular", "Ruim"));
+        cmbFornecedor.setItems(FXCollections.observableArrayList("Destack Móveis", "KLM Informática", "América Ferramentas"));
         tabelaItens.setItems(listaItens);
         nomeProduto.textProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue.matches("[a-zA-ZÀ-ÿ\\s]*")) {
@@ -88,12 +90,12 @@ public class CadastroPatrimonioController {
             }
         });
 
-        ChaveAcesso.textProperty().addListener((obs, oldText, newText) -> {
+        chaveAcesso.textProperty().addListener((obs, oldText, newText) -> {
             if (!newText.matches("\\d*")) {
-                ChaveAcesso.setText(newText.replaceAll("[^\\d]", ""));
+                chaveAcesso.setText(newText.replaceAll("[^\\d]", ""));
             }
-            if (ChaveAcesso.getText().length() > 44) {
-                ChaveAcesso.setText(ChaveAcesso.getText().substring(0, 44));
+            if (chaveAcesso.getText().length() > 44) {
+                chaveAcesso.setText(chaveAcesso.getText().substring(0, 44));
             }
         });
 
@@ -103,9 +105,9 @@ public class CadastroPatrimonioController {
             }
         });
 
-        RecebPor.textProperty().addListener((obs, oldText, newText) -> {
+        recebPor.textProperty().addListener((obs, oldText, newText) -> {
             if (!newText.matches("[a-zA-Z\\s]*")) {
-                RecebPor.setText(newText.replaceAll("[^a-zA-Z\\s]", ""));
+                recebPor.setText(newText.replaceAll("[^a-zA-Z\\s]", ""));
             }
         });
 
@@ -117,7 +119,7 @@ public class CadastroPatrimonioController {
             return null;
         };
 
-        ChaveAcesso.setTextFormatter(new TextFormatter<String>(change -> {
+        chaveAcesso.setTextFormatter(new TextFormatter<String>(change -> {
             if (change.getControlNewText().matches("\\d{0,44}")) {
                 return change;
             }
@@ -146,7 +148,7 @@ public class CadastroPatrimonioController {
             return null;
         };
 
-        RecebPor.setTextFormatter(new TextFormatter<>(change -> {
+        recebPor.setTextFormatter(new TextFormatter<>(change -> {
             if (change.getControlNewText().matches("[\\p{L} ]{0,100}")) {
                 return change;
             }
@@ -181,7 +183,18 @@ public class CadastroPatrimonioController {
         String setor = cmbSetor.getValue();
         double valor = Double.parseDouble(valorUnitario.getText());
         int qtd = Integer.parseInt(quantidadeProduto.getText());
-        ItemPatrimonio item = new ItemPatrimonio(nome, situacao, categoria, setor, valor, qtd);
+        String recebidoPor = recebPor.getText();
+        LocalDate localDateReceb = dataReceb.getValue();
+        Date dataRecebimento = Date.valueOf(localDateReceb);
+        String fornecedor = cmbFornecedor.getValue();
+        LocalDate localDateAquisicao = dataAquisicao.getValue();
+        Date dtAquisicao = Date.valueOf(localDateAquisicao);
+        String chAcesso = chaveAcesso.getText();
+        String numero = numeroNF.getText();
+        String serie = numeroSerie.getText();
+
+        ItemPatrimonio item = new ItemPatrimonio(nome, categoria, setor, situacao, valor, qtd, recebidoPor, dataRecebimento, fornecedor,
+                dtAquisicao, chAcesso, numero, serie);
         listaItens.add(item);
         limparCampos();
     }
@@ -189,43 +202,42 @@ public class CadastroPatrimonioController {
     @FXML
     private void confirmarCadastro() {
         try {
-
             if (listaItens.isEmpty()) {
                 showAlert("Erro", "A lista de itens está vazia." + "\nPor favor, adicione pelo menos um item.", Alert.AlertType.ERROR);
                 return;
             }
-            double valorTotal = listaItens.stream()
-                    .mapToDouble(item -> item.getValorUnitario() * item.getQuantidade())
-                    .sum();
-            String chave = ChaveAcesso.getText();
-            String numeroDoc = numeroNF.getText();
-            Date dataAq = Date.valueOf(dataAquisicao.getValue());
-            Date dataRec = Date.valueOf(dataReceb.getValue());
-            String fornecedor = cmbFornecedor.getValue();
-            String recebidoPor = RecebPor.getText();
-            String serie = numeroSerie.getText();
-            String nomeProdutoStr = nomeProduto.getText();
-            String categoria = cmbCategoria.getValue();
-            String setor = cmbSetor.getValue();
-            String situacao = situacaoProduto.getValue();
-
-            int quantidadeTotal = listaItens.stream().mapToInt(ItemPatrimonio::getQuantidade).sum();
+            if (listaItens.isEmpty()) {
+                showAlert("Erro", "A lista de itens está vazia." + "\nPor favor, adicione pelo menos um item.", Alert.AlertType.ERROR);
+                return;
+            }
 
             PatrimonioDAO dao = new PatrimonioDAO();
-            int patrimonioId = dao.salvarPatrimonioCompleto(
-                    chave, numeroDoc, dataAq, dataRec, fornecedor, recebidoPor,
-                    serie, nomeProdutoStr, categoria, setor, situacao, valorTotal, quantidadeTotal
-            );
-
-            dao.salvarItensIndividuais(patrimonioId, listaItens);
-
-            //Montando JSON com dados do backup
             Map<String, Object> dadosBackup = new LinkedHashMap<>();
-            dadosBackup.put("Id do Patrimônio: ", patrimonioId);
-            String jsonBackup = new ObjectMapper().writeValueAsString(dadosBackup);
-
             LogDAO logDAO = new LogDAO();
-            logDAO.registrar("admin", "INSERIR", "patrimonio", "Cadastro do patrimônio ID: " + patrimonioId, jsonBackup);
+
+            for (ItemPatrimonio item : listaItens) {
+                Integer patrimonioId = dao.salvarPatrimonioCompleto(
+                        item.getChaveAcesso(),
+                        item.getNumero(),
+                        item.getDataAquisicao(),
+                        item.getDataRecebimento(),
+                        item.getFornecedor(),
+                        item.getRecebidoPor(),
+                        item.getSerie(),
+                        item.getNome(),
+                        item.getCategoria(),
+                        item.getSetor(),
+                        item.getSituacao(),
+                        item.getValorUnitario(),
+                        item.getQuantidade());
+                        //Montando JSON com dados do backup
+                        dadosBackup.put("Id do Patrimônio: ", patrimonioId);
+                        String jsonBackup = new ObjectMapper().writeValueAsString(dadosBackup);
+
+                        logDAO.registrar("admin", "INSERIR", "patrimonio", "Cadastro do patrimônio ID: " + patrimonioId, jsonBackup);
+            }
+//            dao.salvarItensIndividuais(patrimonioId, listaItens);
+
             showAlert("Sucesso", "Patrimônio e itens cadastrados com sucesso!" , Alert.AlertType.INFORMATION);
             limparCampos();
 
@@ -276,7 +288,7 @@ public class CadastroPatrimonioController {
     }
 
     private boolean validarNotaFiscal() {
-        String chave = ChaveAcesso.getText();
+        String chave = chaveAcesso.getText();
         String numero = numeroNF.getText();
         String serie = numeroSerie.getText();
 

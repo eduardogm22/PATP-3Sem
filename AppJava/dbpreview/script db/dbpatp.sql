@@ -78,44 +78,31 @@ CREATE TABLE situacoes (
     ativo BOOLEAN NOT NULL DEFAULT TRUE
 );
 
-
--- Tabela de patrimônio (documento de aquisição)
-CREATE TABLE patrimonio (
+-- Tabela de Setores Reponsáveis
+CREATE TABLE setores_responsaveis (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    chave_acesso VARCHAR(50) UNIQUE,
-    numero_documento VARCHAR(30),
-    data_aquisicao DATE,
-    data_recebimento DATE,
-    fornecedor_id INT,
-    recebido_por VARCHAR(100),
-    serie VARCHAR(50),
-    nome_produto VARCHAR(100) NOT NULL,
-    categoria_id INT,
-    setor_responsavel VARCHAR(100),
-    situacao_id INT,
-    valor_total DECIMAL(10, 2) NOT NULL,
-    quantidade INT NOT NULL DEFAULT 1,
-    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (fornecedor_id) REFERENCES fornecedores(id),
-    FOREIGN KEY (categoria_id) REFERENCES categorias(id),
-    FOREIGN KEY (situacao_id) REFERENCES situacoes(id)
+    nome VARCHAR(50) NOT NULL UNIQUE,
+    descricao TEXT,
+    ativo BOOLEAN NOT NULL DEFAULT TRUE
 );
 
--- Itens individuais derivados do patrimônio
-CREATE TABLE itens_patrimonio (
+-- Tabela de patrimônio
+CREATE TABLE patrimonio (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    patrimonio_id INT NOT NULL,
     nome VARCHAR(100) NOT NULL,
-    situacao_id INT,
-    categoria_id INT,
-    setor VARCHAR(100),
-    
-    valor_unitario DECIMAL(10,2),
-    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-    FOREIGN KEY (patrimonio_id) REFERENCES patrimonio(id) ON DELETE CASCADE,
-    FOREIGN KEY (situacao_id) REFERENCES situacoes(id),
-    FOREIGN KEY (categoria_id) REFERENCES categorias(id)
+    categoria VARCHAR(100),
+    setor_responsavel VARCHAR(100),
+    situacao VARCHAR(100),
+    valor DECIMAL(10,2),
+    quantidade INT NOT NULL DEFAULT 1,
+    recebido_por VARCHAR(100),
+    data_recebimento DATE,
+    fornecedor VARCHAR(100),
+    data_aquisicao DATE,
+    chave_acesso VARCHAR(50),
+    numero_documento VARCHAR(30),
+    serie VARCHAR(50),
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP    
 );
 
 -- Tabela de logs de ações
@@ -132,5 +119,5 @@ CREATE TABLE log_usuarios (
 );
 
 -- Inserção inicial de admin
-INSERT INTO usuarios (nome, senha, email)
-VALUES ('admin', 'admin', 'admin@sistema.com');
+INSERT INTO usuarios (nome_usuario, nome, senha, email)
+VALUES ('admin', 'admin', 'admin', 'admin@sistema.com');
