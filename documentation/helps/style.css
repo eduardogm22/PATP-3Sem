@@ -1086,13 +1086,13 @@ mark {
       overflow: hidden;
 }
 .slide {
-  background: #ffffff;
+  background: #fbfced;
   padding: 60px 80px;
   max-width: 1000px;
   width: 100%;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
-  border: 4px solid #26a69a;
+  border-radius: 50px;
+  border: 4px solid #01412b ;
   position: relative;
   animation: slideIn 0.8s ease-out;
 }
@@ -1155,11 +1155,50 @@ ul li:hover {
   flex-shrink: 0;
 }
 
+.img-slide img {
+  max-width: 400px;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.slide .conteudo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
 
+.slide .texto {
+  flex: 1;
+  min-width: 300px;
+}
 
+.img-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.img-wrapper {
+  position: relative;
+  display: inline-block;
+}
 
+.img-principal {
+  width: 400px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
 
+.logo-superior {
+  position: absolute; 
+  bottom: -20px;
+  right:-10px;
+  background: transparent;
+  box-shadow: none;
+    z-index: 10;    
+}
 
 
 
