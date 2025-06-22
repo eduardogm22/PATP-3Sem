@@ -1208,7 +1208,14 @@ ul li:hover {
 }
 
 
-
+.TXTdesigner{
+    text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 40px;
+  margin-top: 40px;
+  color: #333;
+}
 
 
 
