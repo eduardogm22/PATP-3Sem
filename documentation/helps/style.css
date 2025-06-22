@@ -1186,9 +1186,16 @@ ul li:hover {
 }
 
 .img-principal {
-  width: 400px;
-  border-radius: 20px;
+  width: 300px;
+  border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+}
+
+.img-principal:hover {
+  transform: scale(2.30) translateX(-170px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .logo-superior {
