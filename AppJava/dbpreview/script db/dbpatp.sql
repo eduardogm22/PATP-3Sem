@@ -125,6 +125,7 @@ CREATE TABLE log_usuarios (
     acao VARCHAR(50) NOT NULL, -- INSERIR, ALTERAR, EXCLUIR
     tabela_afetada VARCHAR(100) NOT NULL,
     descricao TEXT,
+    jsonBackup TEXT,
     data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)

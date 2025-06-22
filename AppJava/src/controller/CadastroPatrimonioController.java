@@ -1,4 +1,5 @@
 package controller;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import db.Conexao;
 
 import javafx.scene.control.TextFormatter;
@@ -7,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.function.UnaryOperator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -215,8 +218,14 @@ public class CadastroPatrimonioController {
             );
 
             dao.salvarItensIndividuais(patrimonioId, listaItens);
+
+            //Montando JSON com dados do backup
+            Map<String, Object> dadosBackup = new LinkedHashMap<>();
+            dadosBackup.put("Id do Patrimônio: ", patrimonioId);
+            String jsonBackup = new ObjectMapper().writeValueAsString(dadosBackup);
+
             LogDAO logDAO = new LogDAO();
-            logDAO.registrar("admin", "INSERIR", "patrimonio", "Cadastro do patrimônio ID: " + patrimonioId);
+            logDAO.registrar("admin", "INSERIR", "patrimonio", "Cadastro do patrimônio ID: " + patrimonioId, jsonBackup);
             showAlert("Sucesso", "Patrimônio e itens cadastrados com sucesso!" , Alert.AlertType.INFORMATION);
             limparCampos();
 
