@@ -1,4 +1,5 @@
 package controller;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import db.Conexao;
 
@@ -54,20 +55,23 @@ public class CadastroPatrimonioController {
     @FXML private Label labelValorTemp;
 
     private ObservableList<ItemPatrimonio> listaItens = FXCollections.observableArrayList();
+    private int idPtr;
+    private Runnable callback;
 
     @FXML
     public void initialize() {
-
-        tabelaItens.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        colNome.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getNome()));
-        colSituacao.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getSituacao()));
-        colQuantidade.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getQuantidade()));
-        colValorTotal.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getValorTotal()));
-        cmbCategoria.setItems(FXCollections.observableArrayList("Informática", "Mobiliário", "Ferramentas"));
-        cmbSetor.setItems(FXCollections.observableArrayList("TI", "Manutenção", "Financeiro"));
-        situacaoProduto.setItems(FXCollections.observableArrayList("Bom", "Regular", "Ruim"));
-        cmbFornecedor.setItems(FXCollections.observableArrayList("Destack Móveis", "KLM Informática", "América Ferramentas"));
-        tabelaItens.setItems(listaItens);
+        if (tabelaItens != null) {
+            tabelaItens.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+            colNome.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getNome()));
+            colSituacao.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getSituacao()));
+            colQuantidade.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getQuantidade()));
+            colValorTotal.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getValorTotal()));
+            cmbCategoria.setItems(FXCollections.observableArrayList("Informática", "Mobiliário", "Ferramentas"));
+            cmbSetor.setItems(FXCollections.observableArrayList("TI", "Manutenção", "Financeiro"));
+            situacaoProduto.setItems(FXCollections.observableArrayList("Bom", "Regular", "Ruim"));
+            cmbFornecedor.setItems(FXCollections.observableArrayList("Destack Móveis", "KLM Informática", "América Ferramentas"));
+            tabelaItens.setItems(listaItens);
+        }
         nomeProduto.textProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue.matches("[a-zA-ZÀ-ÿ\\s]*")) {
                 nomeProduto.setText(oldValue);
@@ -206,10 +210,6 @@ public class CadastroPatrimonioController {
                 showAlert("Erro", "A lista de itens está vazia." + "\nPor favor, adicione pelo menos um item.", Alert.AlertType.ERROR);
                 return;
             }
-            if (listaItens.isEmpty()) {
-                showAlert("Erro", "A lista de itens está vazia." + "\nPor favor, adicione pelo menos um item.", Alert.AlertType.ERROR);
-                return;
-            }
 
             PatrimonioDAO dao = new PatrimonioDAO();
             Map<String, Object> dadosBackup = new LinkedHashMap<>();
@@ -234,7 +234,7 @@ public class CadastroPatrimonioController {
                         dadosBackup.put("Id do Patrimônio: ", patrimonioId);
                         String jsonBackup = new ObjectMapper().writeValueAsString(dadosBackup);
 
-                        logDAO.registrar("admin", "INSERIR", "patrimonio", "Cadastro do patrimônio ID: " + patrimonioId, jsonBackup);
+                        logDAO.registrar(SessaoController.getNomeUsuario(), "INSERIR", "patrimonio", "Cadastro do patrimônio ID: " + patrimonioId, jsonBackup);
             }
 //            dao.salvarItensIndividuais(patrimonioId, listaItens);
 
@@ -245,6 +245,72 @@ public class CadastroPatrimonioController {
             showAlert("Erro ao salvar", "Detalhes: " + e.getMessage() + "\nPor favor, tente novamente.", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void atualizarPatrimonio() throws SQLException, JsonProcessingException {
+        try {
+            PatrimonioDAO dao = new PatrimonioDAO();
+            Map<String, Object> dadosBackup = new LinkedHashMap<>();
+            LogDAO logDAO = new LogDAO();
+            int idPatrimonio = getIdPtr();
+            dao.updatePatrimonioCompleto(
+                    idPatrimonio,
+                    chaveAcesso.getText(),
+                    numeroNF.getText(),
+                    Date.valueOf(dataAquisicao.getValue()),
+                    Date.valueOf(dataReceb.getValue()),
+                    cmbFornecedor.getValue(),
+                    recebPor.getText(),
+                    numeroSerie.getText(),
+                    nomeProduto.getText(),
+                    cmbCategoria.getValue(),
+                    cmbSetor.getValue(),
+                    situacaoProduto.getValue(),
+                    Double.parseDouble(valorUnitario.getText()),
+                    Integer.parseInt(quantidadeProduto.getText())
+            );
+            //Montando JSON com dados do backup
+            dadosBackup.put("IdPtr: ", idPatrimonio);
+            dadosBackup.put("Nome", nomeProduto.getText());
+            dadosBackup.put("Categ", cmbCategoria.getValue());
+            dadosBackup.put("SetResp", cmbSetor.getValue());
+            dadosBackup.put("Sit", situacaoProduto.getValue());
+            dadosBackup.put("ValUn", valorUnitario.getText());
+            dadosBackup.put("Qtd", quantidadeProduto.getText());
+            dadosBackup.put("RecPor", recebPor.getText());
+            dadosBackup.put("DtRec", dataReceb.getValue().toString());
+            dadosBackup.put("Forn", cmbFornecedor.getValue());
+            dadosBackup.put("DtAq", dataAquisicao.getValue().toString());
+            dadosBackup.put("ChAcesso", chaveAcesso.getText());
+            dadosBackup.put("NúmNF", numeroNF.getText());
+            dadosBackup.put("SérieNF", numeroSerie.getText());
+            String jsonBackup = new ObjectMapper().writeValueAsString(dadosBackup);
+
+            logDAO.registrar(SessaoController.getNomeUsuario(), "ATUALIZAR", "patrimonio", "Atualização do patrimônio ID: " + idPatrimonio, jsonBackup);
+
+//          dao.salvarItensIndividuais(patrimonioId, listaItens);
+
+            showAlert("Sucesso", "Patrimônio atualizado com sucesso!" , Alert.AlertType.INFORMATION);
+            limparCampos();
+
+            // Executar callback se houver (atualiza a tabela da tela principal)
+            if (callback != null) {
+                callback.run();
+            }
+
+            // Fechar janela atual
+            Stage stage = (Stage) chaveAcesso.getScene().getWindow();
+            stage.close();
+
+        } catch (Exception e) {
+            showAlert("Erro ao salvar", "Detalhes: " + e.getMessage() + "\nPor favor, tente novamente.", Alert.AlertType.ERROR);
+            e.printStackTrace();
+        }
+    }
+
+    public void setCallback(Runnable callback) {
+        this.callback = callback;
     }
 
     private void retornarParaTelaInicial() {
@@ -325,6 +391,35 @@ public class CadastroPatrimonioController {
         return true;
 
     }
+
+    public void setIdPatrimonio (int idPtr) {
+        this.idPtr = idPtr;
+    }
+    public int getIdPtr () {
+        return idPtr;
+    }
+
+    public void carregarItemParaEdicao(ItemPatrimonio item) {
+        if (item == null) return;
+
+        setIdPatrimonio(item.getId());
+        chaveAcesso.setText(item.getChaveAcesso());
+        recebPor.setText(item.getRecebidoPor());
+        numeroNF.setText(item.getNumero());
+        numeroSerie.setText(item.getSerie());
+        dataAquisicao.setValue(item.getDataAquisicao().toLocalDate());
+        dataReceb.setValue(item.getDataRecebimento().toLocalDate());
+        cmbFornecedor.setValue(item.getFornecedor());
+        nomeProduto.setText(item.getNome());
+        situacaoProduto.setValue(item.getSituacao());
+        cmbCategoria.setValue(item.getCategoria());
+        cmbSetor.setValue(item.getSetor());
+        valorUnitario.setText(String.valueOf(item.getValorUnitario()));
+        quantidadeProduto.setText(String.valueOf(item.getQuantidade()));
+
+        atualizarValorTemp();
+    }
+
 
     @FXML
     private void cancelarCadastro() {

@@ -9,15 +9,25 @@ public class PatrimonioDAO {
 
     public int salvarPatrimonioCompleto(String chaveAcesso, String numeroDocumento, Date dataAquisicao,
                                         Date dataRecebimento, String fornecedor, String recebidoPor,
-                                        String serie, String nomeItem, String categoriaItem,
-                                        String setorResponsavel, String situacaoItem,
-                                        double valorUnitario, int quantidade) throws SQLException {
+                                        String serie, String nomeProduto, String categoria,
+                                        String setorResponsavel, String situacao,
+                                        double valorTotal, int quantidade) throws SQLException {
 
         String sql = "INSERT INTO patrimonio (" +
-                "chave_acesso, numero_documento, data_aquisicao, data_recebimento, " +
-                "fornecedor, recebido_por, serie, nome, categoria, setor_responsavel, " +
-                "situacao, valor, quantidade" +
-                ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "chave_acesso, " +
+                "numero_documento, " +
+                "data_aquisicao, " +
+                "data_recebimento, " +
+                "fornecedor, " +
+                "recebido_por, " +
+                "serie, " +
+                "nome, " +
+                "categoria, " +
+                "setor_responsavel, " +
+                "situacao, " +
+                "valor, " +
+                "quantidade) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = Conexao.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -29,23 +39,71 @@ public class PatrimonioDAO {
             stmt.setString(5, fornecedor);
             stmt.setString(6, recebidoPor);
             stmt.setString(7, serie);
-            stmt.setString(8, nomeItem);
-            stmt.setString(9, categoriaItem);
+            stmt.setString(8, nomeProduto);
+            stmt.setString(9, categoria);
             stmt.setString(10, setorResponsavel);
-            stmt.setString(11, situacaoItem);
-            stmt.setDouble(12, valorUnitario);
+            stmt.setString(11, situacao);
+            stmt.setDouble(12, valorTotal);
             stmt.setInt(13, quantidade);
 
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
-                return rs.getInt(1); // retorna o ID gerado
+                return rs.getInt(1); // retorna o ID gerado do patrimônio
             } else {
                 throw new SQLException("Erro ao obter ID do patrimônio.");
             }
         }
     }
+
+    public void updatePatrimonioCompleto(int idPatrimonio, String chaveAcesso, String numeroDocumento, Date dataAquisicao,
+                                         Date dataRecebimento, String fornecedor, String recebidoPor,
+                                         String serie, String nomeProduto, String categoria,
+                                         String setorResponsavel, String situacao,
+                                         double valorTotal, int quantidade) throws SQLException {
+
+        String sql = "UPDATE patrimonio SET " +
+                "chave_acesso = ?, " +
+                "numero_documento = ?, " +
+                "data_aquisicao = ?, " +
+                "data_recebimento = ?, " +
+                "fornecedor = ?, " +
+                "recebido_por = ?, " +
+                "serie = ?, " +
+                "nome = ?, " +
+                "categoria = ?, " +
+                "setor_responsavel = ?, " +
+                "situacao = ?, " +
+                "valor = ?, " +
+                "quantidade = ? " +
+                "WHERE id = ?";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, chaveAcesso);
+            stmt.setString(2, numeroDocumento);
+            stmt.setDate(3, dataAquisicao);
+            stmt.setDate(4, dataRecebimento);
+            stmt.setString(5, fornecedor);
+            stmt.setString(6, recebidoPor);
+            stmt.setString(7, serie);
+            stmt.setString(8, nomeProduto);
+            stmt.setString(9, categoria);
+            stmt.setString(10, setorResponsavel);
+            stmt.setString(11, situacao);
+            stmt.setDouble(12, valorTotal);
+            stmt.setInt(13, quantidade);
+            stmt.setInt(14, idPatrimonio);
+
+            int rowsUpdated = stmt.executeUpdate();
+            if (rowsUpdated == 0) {
+                throw new SQLException("Nenhum patrimônio foi atualizado. Verifique o ID informado.");
+            }
+        }
+    }
+
 //    public void salvarItensIndividuais(int patrimonioId, List<ItemPatrimonio> itens) throws SQLException {
 //        String sql = "INSERT INTO itens_patrimonio (" +
 //                "patrimonio_id, " +

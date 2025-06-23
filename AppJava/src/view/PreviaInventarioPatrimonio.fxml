@@ -47,8 +47,7 @@
                         </VBox>
                         <VBox alignment="CENTER" spacing="45.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Button alignment="CENTER" mnemonicParsing="false" text="Button" />
-                              <Button mnemonicParsing="false" text="Button" />
+                               <Button mnemonicParsing="false" onAction="#editarItem" text="Editar" HBox.hgrow="ALWAYS" />
                            </children>
                         </VBox>
                      </children>

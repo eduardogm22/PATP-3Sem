@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CadastroPatrimonioController">
+   <children>
+      <VBox>
+         <children>
+            <VBox>
+               <children>
+                  <HBox alignment="TOP_CENTER" spacing="45.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox>
+                           <children>
+                              <Label text="Chave de Acesso" />
+                              <TextField fx:id="chaveAcesso" />
+                              <Label text="Recebido por:" />
+                              <TextField fx:id="recebPor" />
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <Label text="Número" />
+                              <TextField fx:id="numeroNF" />
+                              <Label text="Série" />
+                              <TextField fx:id="numeroSerie" />
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <Label text="Data de Aquisição" />
+                              <DatePicker fx:id="dataAquisicao" />
+                              <Label text="Data de Recebimento" />
+                              <DatePicker fx:id="dataReceb" />
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <Label text="Fornecedor" />
+                              <ComboBox fx:id="cmbFornecedor" prefWidth="150.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets top="15.0" />
+                     </padding>
+                  </HBox>
+
+                  <HBox alignment="CENTER" spacing="45.0">
+                     <children>
+                        <VBox>
+                           <children>
+                              <Label text="Nome do produto:" />
+                              <TextField fx:id="nomeProduto" />
+                              <Label text="Situação:" />
+                              <ComboBox fx:id="situacaoProduto" prefWidth="150.0" />
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <Label text="Categoria:" />
+                              <ComboBox fx:id="cmbCategoria" prefWidth="150.0" />
+                              <Label text="Setor responsável:" />
+                              <ComboBox fx:id="cmbSetor" prefWidth="150.0" />
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <Label text="Valor unitário" />
+                              <TextField fx:id="valorUnitario" />
+                              <Label text="Quantidade" />
+                              <TextField fx:id="quantidadeProduto" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER">
+                           <children>
+                              <Label fx:id="labelValorTemp" alignment="CENTER" contentDisplay="CENTER" text="R$ 0,00" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="15.0" top="15.0" />
+                     </padding>
+                  </HBox>
+
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#atualizarPatrimonio" text="Salvar Alterações" />
+                     </children>
+                     <padding>
+                        <Insets top="20.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</StackPane>
